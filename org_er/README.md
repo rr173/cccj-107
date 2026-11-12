@@ -82,6 +82,75 @@ python3 scripts/verify.py                      # 全部核验
 python3 scripts/run_demo.py                    # 端到端演示（自建独立库，含全部场景与核验）
 ```
 
+## 论文署名贡献核算作业（org_er.contrib）
+
+在既有归并结果之上核算论文目录的署名贡献，供研究管理人员核对年度产出。
+**归并结果只作只读对照**：作业以 `READ_ONLY` 挂载机构库、只查指定轮次的
+`entity_members`，绝不重新猜测机构是否相同，也不改动库中任何内容
+（演示中以作业前后全表快照比对证实）。
+
+```bash
+python3 scripts/make_contrib_sample.py         # 生成论文目录小样本 data/papers.jsonl
+python3 scripts/contrib.py \
+    --er-db output/er.duckdb --round 3 \       # 归并结果所在库与轮次（运行时指定）
+    --catalog data/papers.jsonl \              # 论文目录 JSONL
+    --priority crossref,scopus,local_ir \      # 供应方优先级（高->低；未列入者并列最低）
+    --out-db output/contrib.duckdb \           # 作业库（独立文件，不写机构库）
+    --out output/contrib --verify              # 交付表目录 + 独立核验
+python3 scripts/run_contrib_demo.py            # 端到端演示（18 项断言全过）
+```
+
+### 目录行格式
+
+```json
+{"supplier": "crossref", "paper_id": "cr-0001", "doi": "https://doi.org/10.1000/XYZ.123",
+ "year": 2023,
+ "authors": [{"name": "Alice Zhang",
+              "affils": [{"source": "companies_house", "entry": "GB-ACME-1"}]}]}
+```
+
+每行含供应方、供应方论文号、DOI、发表年份与**有序**作者列表；每位作者带若干
+机构条目引用，引用 = 原目录的 `source`（来源）+ `entry`（条目号），按与机构管线
+相同的规范条目键 `norm(source)::norm(entry)` 对照到归并结果。
+
+### 去重与版本选取
+
+- 同一 DOI（清除链接前缀、空白、大小写差异后）被多家重复收录时归并为一篇，
+  按 `--priority` 选取**整份**作者名单，不跨名单拼作者；
+- 不带 DOI 的论文按供应方 + 论文号独立保留，互不归并；
+- 年份或作者顺序等冲突时仍按优先级选取，但逐版本留下差异
+  （`year_differs / author_list_differs / author_order_differs / affil_differs`）与选取理由；
+- 优先级打平：内容一致则按确定序取一（`tie_identical_content`）；
+  内容不同则**整篇隔离**（`quarantine:tie_conflicting_content`），绝不按输入顺序挑一个；
+- 坏行（空作者名单、非法年份、作者结构损坏、JSON 残缺）逐行说明原因，
+  不算作正常论文。
+
+### 贡献核算（精确有理数）
+
+每篇计入论文总贡献为 1：先均分给作者（`1/作者数`），作者份额再均分给他能定位到的
+**不同**机构（同一机构多条署名先去重再分）。部分署名能定位时只在已定位机构间分配，
+未定位引用保留待核查；署名全部未定位或无署名的作者，整份记入**待归属**。
+隔离论文不计贡献。分子/分母以精确有理数（HUGEINT）保存，不用小数累计。
+
+### 交付表（output/contrib/*.csv）
+
+| 表 | 内容 |
+|---|---|
+| `contrib_author_details.csv` | 逐位作者分摊明细：去重来源、作者位置、署名原样、去重后机构、未定位引用、每次除法依据 |
+| `contrib_institution_year.csv` | 按机构、年份汇总的贡献量（精确分数 + 展示用小数） |
+| `contrib_unassigned_year.csv` | 待归属按年汇总 |
+| `contrib_papers.csv` / `contrib_paper_versions.csv` | 论文去重结果、选取理由与全部版本差异 |
+| `contrib_quarantine.csv` | 隔离论文及冲突版本 |
+| `contrib_rejected_lines.csv` | 坏行及原因 |
+
+### 独立核验（--verify / run_contrib_demo.py）
+
+不复用核算代码路径，从落库结果反推：每篇计入论文的机构份额 + 待归属份额恰好为 1；
+作者份额 == 1/作者数且分摊结构一致；机构×年份汇总由明细逐行重算可逐项追到作者明细；
+隔离论文零分摊；每年机构汇总 + 待归属 == 该年计入论文数；ok 行恰好进一组、坏行不进组。
+演示另验证：机构库作业前后全表快照一致、目录乱序读入结果签名一致、
+同一目录在不同轮次下的定位差异（轮次即只读对照的版本）。
+
 ## 演示场景（run_demo.py，19 项断言全过）
 
 1. **S1 跨来源同机构合并**：GB（强边+弱边双证据，强边优先）、CN（全角注册号经 NFKC 规范化后相同）、DE；
@@ -119,7 +188,9 @@ python3 scripts/run_demo.py                    # 端到端演示（自建独立�
 ```
 config/er_config.json   全部规则配置（含样例）
 org_er/                 管线包：normalize / rules / entity / pipeline / store / revisions / reference / verifylib
+org_er/contrib/         署名贡献核算子包：normalize / parse / dedup / account / store / verify / job
 scripts/                入口：make_sample_data / build / revise / verify / run_demo
-data/                   生成的样本与修订事件
-output/                 DuckDB 库与导出的交付表
+                        + make_contrib_sample / contrib / run_contrib_demo（核算作业）
+data/                   生成的样本与修订事件、论文目录样本 papers.jsonl
+output/                 DuckDB 库与导出的交付表（含 output/contrib/ 核算交付表）
 ```

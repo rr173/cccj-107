@@ -1,0 +1,7 @@
+line_no,supplier,paper_id,reject_reason,raw_json
+16,crossref,cr-bad1,empty_authors: 作者名单为空,"{""supplier"": ""crossref"", ""paper_id"": ""cr-bad1"", ""doi"": ""10.9000/B1"", ""year"": 2023, ""authors"": [], ""scenario"": ""P9_bad_empty_authors""}"
+17,crossref,cr-bad2,illegal_year: 年份不是 4 位数字: 'n/a',"{""supplier"": ""crossref"", ""paper_id"": ""cr-bad2"", ""doi"": ""10.9000/B2"", ""year"": ""n/a"", ""authors"": [{""name"": ""Zed""}], ""scenario"": ""P9_bad_year""}"
+18,crossref,cr-bad3,broken_author_structure: authors 不是列表（str）,"{""supplier"": ""crossref"", ""paper_id"": ""cr-bad3"", ""doi"": ""10.9000/B3"", ""year"": 2023, ""authors"": ""not-a-list"", ""scenario"": ""P9_bad_authors_structure""}"
+19,crossref,cr-bad4,broken_author_structure: 第 1 位作者 affils 不是列表,"{""supplier"": ""crossref"", ""paper_id"": ""cr-bad4"", ""doi"": ""10.9000/B4"", ""year"": 2023, ""authors"": [{""name"": ""Zed"", ""affils"": ""oops""}], ""scenario"": ""P9_bad_affils_structure""}"
+20,crossref,cr-bad6,"illegal_year: 年份超出范围 [1000,2100]: 20235","{""supplier"": ""crossref"", ""paper_id"": ""cr-bad6"", ""doi"": ""10.9000/B6"", ""year"": 20235, ""authors"": [{""name"": ""Zed""}], ""scenario"": ""P9_bad_year_range""}"
+21,"","",json_parse_error: Expecting value: line 2 column 1 (char 96),"{""supplier"": ""crossref"", ""paper_id"": ""cr-bad5"", ""doi"": ""10.9000/B5"", ""year"": 2023, ""authors"": ["

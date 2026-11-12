@@ -1,0 +1,2 @@
+group_key,n_versions,quarantine_reason,version_diffs_json
+doi::10.4000/conf.1,2,quarantine:tie_conflicting_content,"[{""content_hash"": ""c63b86a230441166"", ""diffs"": [], ""line_no"": 8, ""n_authors"": 2, ""paper_id"": ""pm-100"", ""priority_rank"": 3, ""selected"": false, ""supplier"": ""pubmed"", ""year"": 2023}, {""content_hash"": ""2327c92b6c37432b"", ""diffs"": [""author_list_differs""], ""line_no"": 2, ""n_authors"": 1, ""paper_id"": ""w-100"", ""priority_rank"": 3, ""selected"": false, ""supplier"": ""wos"", ""year"": 2023}]"

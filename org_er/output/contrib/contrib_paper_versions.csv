@@ -1,0 +1,16 @@
+group_key,supplier,paper_id,line_no,priority_rank,content_hash,is_selected
+doi::10.1000/xyz.123,crossref,cr-0001,1,0,f896e41709154357,true
+doi::10.1000/xyz.123,scopus,sc-9001,4,1,51c4b5390da1fe83,false
+doi::10.2000/aaa.1,crossref,cr-0002,6,0,9a0c8839be6abc93,true
+doi::10.2000/aaa.1,scopus,sc-9002,12,1,346a1a19b21d1936,false
+doi::10.3000/dedup.1,crossref,cr-0003,3,0,41b0fc52f218fac2,true
+doi::10.3001/part.1,crossref,cr-0004,10,0,cd587709edfa9a8a,true
+doi::10.3002/none.1,crossref,cr-0005,7,0,5faaba553b2d3ac1,true
+doi::10.3003/retract.1,crossref,cr-0011,15,0,1b6e9de7f3b1351d,true
+doi::10.4000/conf.1,pubmed,pm-100,8,3,c63b86a230441166,false
+doi::10.4000/conf.1,wos,w-100,2,3,2327c92b6c37432b,false
+doi::10.4001/same.1,pubmed,pm-101,14,3,06001864e26aef47,true
+doi::10.4001/same.1,wos,w-101,11,3,06001864e26aef47,false
+noid::crossref::cr-0008,crossref,cr-0008,13,0,ca6067ba4f022c84,true
+noid::local_ir::ir-0001,local_ir,ir-0001,5,2,ca6067ba4f022c84,true
+noid::local_ir::ir-0001,local_ir,ir-0001,9,2,ca6067ba4f022c84,false
