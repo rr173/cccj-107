@@ -1,8 +1,8 @@
-entity_id,year,total_num,total_den,total_text,total_decimal_display,n_shares,n_papers
-ent_2c0ffc799042,2023,2,3,2/3,0.666667,2,2
-ent_880fd18f93ce,2023,8,3,8/3,2.666667,4,4
-ent_b6dcb47267a6,2023,1,3,1/3,0.333333,1,1
-ent_24f46dc84f57,2024,1,1,1/1,1.0,1,1
-ent_2c0ffc799042,2024,2,1,2/1,2.0,3,3
-ent_880fd18f93ce,2024,1,2,1/2,0.5,1,1
-ent_e2804e659c1f,2024,1,2,1/2,0.5,1,1
+entity_id,year,total_num,total_den,total_text,total_decimal_approx,total_decimal_note,n_shares,n_papers
+ent_2c0ffc799042,2023,2,3,2/3,0.666667,approx_display_only,2,2
+ent_880fd18f93ce,2023,8,3,8/3,2.666667,approx_display_only,4,4
+ent_b6dcb47267a6,2023,1,3,1/3,0.333333,approx_display_only,1,1
+ent_24f46dc84f57,2024,1,1,1/1,1.000000,approx_display_only,1,1
+ent_2c0ffc799042,2024,2,1,2/1,2.000000,approx_display_only,3,3
+ent_880fd18f93ce,2024,1,2,1/2,0.500000,approx_display_only,1,1
+ent_e2804e659c1f,2024,1,2,1/2,0.500000,approx_display_only,1,1

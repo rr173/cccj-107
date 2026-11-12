@@ -1,0 +1,12 @@
+{
+  "batch_id": "20261112T205017Z-9dd7ebbb",
+  "decimal_columns_are_approximate": true,
+  "decimal_note": "approx_display_only",
+  "exact_columns": [
+    "author_share_num / author_share_den / target_share_num / target_share_den",
+    "total_num / total_den"
+  ],
+  "exported_at": "2026-11-12T21:02:18Z",
+  "format_version": "2",
+  "frac_format": "arbitrary_precision_decimal_integer"
+}

@@ -1,2 +1,2 @@
-year,total_num,total_den,total_text,total_decimal_display,n_authors
-2023,4,3,4/3,1.333333,3
+year,total_num,total_den,total_text,total_decimal_approx,total_decimal_note,n_authors
+2023,4,3,4/3,1.333333,approx_display_only,3

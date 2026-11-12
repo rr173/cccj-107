@@ -80,11 +80,15 @@ def ent_of(con, source, skey, rnd, cfg):
 
 
 def frac_texts(con, group_key):
-    """某篇计入论文的全部分摊行：[(target_kind, entity_id, Fraction)]。"""
+    """某篇计入论文的全部分摊行：[(target_kind, entity_id, Fraction)]。
+
+    BIGNUM 精确列经客户端返回十进制字符串，统一 int() 转换，绝不经浮点。
+    """
     rows = con.execute(
-        "SELECT target_kind, entity_id, share_num, share_den FROM contrib_share_targets "
-        "WHERE group_key = ? ORDER BY target_kind, entity_id", [group_key]).fetchall()
-    return [(k, e, Fraction(n, d)) for k, e, n, d in rows]
+        "SELECT target_kind, entity_id, cast(share_num as varchar), cast(share_den as varchar) "
+        "FROM contrib_share_targets WHERE group_key = ? ORDER BY target_kind, entity_id",
+        [group_key]).fetchall()
+    return [(k, e, Fraction(int(n), int(d))) for k, e, n, d in rows]
 
 
 def main():
@@ -233,30 +237,33 @@ def main():
 
     h("§4 机构×年份汇总：每个汇总值都能用明细解释")
     rows = con.execute(
-        "SELECT entity_id, year, total_num, total_den, n_shares, n_papers "
-        "FROM contrib_institution_year ORDER BY year, entity_id").fetchall()
+        "SELECT entity_id, year, cast(total_num as varchar), cast(total_den as varchar), "
+        "n_shares, n_papers FROM contrib_institution_year ORDER BY year, entity_id").fetchall()
     expect = {(E_ACME, 2023): Fraction(2, 3), (E_YUNTU, 2023): Fraction(8, 3),
               (E_QUIX, 2023): Fraction(1, 3),
               (E_ACME, 2024): Fraction(2), (E_YUNTU, 2024): Fraction(1, 2),
               (E_UMB, 2024): Fraction(1, 2), (E_NIM_SEC, 2024): Fraction(1)}
     got = {}
     for eid, year, num, den, ns, np_ in rows:
-        got[(eid, year)] = Fraction(num, den)
-        print(f"    {year}  {eid}  贡献 {num}/{den} = {num / den:.4f}"
-              f"（{ns} 笔作者份额，来自 {np_} 篇）")
+        got[(eid, year)] = Fraction(int(num), int(den))
+        print(f"    {year}  {eid}  贡献 {num}/{den}"
+              f"（展示约 {float(int(num) / int(den)):.4f}；{ns} 笔作者份额，来自 {np_} 篇）")
         detail = con.execute(
-            "SELECT t.group_key, t.author_pos, t.share_num, t.share_den "
+            "SELECT t.group_key, t.author_pos, cast(t.share_num as varchar), "
+            "cast(t.share_den as varchar) "
             "FROM contrib_share_targets t JOIN contrib_authors a USING (group_key, author_pos) "
             "WHERE t.entity_id=? AND a.year=? ORDER BY t.group_key, t.author_pos",
             [eid, year]).fetchall()
         for gk, pos, n2, d2 in detail:
             print(f"        <- {gk} 第{pos}位作者 {n2}/{d2}")
-    unas = con.execute("SELECT year, total_num, total_den, n_authors FROM contrib_unassigned_year").fetchall()
+    unas = con.execute(
+        "SELECT year, cast(total_num as varchar), cast(total_den as varchar), n_authors "
+        "FROM contrib_unassigned_year").fetchall()
     for year, num, den, na in unas:
         print(f"    {year}  待归属  {num}/{den}（{na} 位作者整份）")
     check("机构×年份汇总与手工推算完全一致", got == expect)
     check("待归属 2023 = 4/3（P1 的 1/3 + P5 的 1）",
-          {(y): Fraction(n, d) for y, n, d, _ in unas} == {2023: Fraction(4, 3)})
+          {(y): Fraction(int(n), int(d)) for y, n, d, _ in unas} == {2023: Fraction(4, 3)})
 
     h("§5 独立核验（不复用核算代码路径）")
     checks_rep = verify_run(con)

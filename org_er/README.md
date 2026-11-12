@@ -97,8 +97,18 @@ python3 scripts/contrib.py \
     --priority crossref,scopus,local_ir \      # 供应方优先级（高->低；未列入者并列最低）
     --out-db output/contrib.duckdb \           # 作业库（独立文件，不写机构库）
     --out output/contrib --verify              # 交付表目录 + 独立核验
+python3 scripts/contrib.py --reuse-existing \
+    --out-db output/contrib.duckdb --out output/contrib
+                                               # 不重算目录：识别/核验已有账目并重新导出
+                                               # （旧版 HUGEINT 小账目自动无损转换）
 python3 scripts/run_contrib_demo.py            # 端到端演示（18 项断言全过）
+python3 scripts/run_contrib_regression.py      # 故障链复现与回归（40 项断言全过）
 ```
+
+一次核算的处理链路固定为：**精确计算 -> 暂存 -> 独立核验 -> 整套导出并回读核验 ->
+单事务切换当前结果 -> 发布 CSV -> 清理**。重跑不会先摧毁上一次成功结果，细节见
+“重跑、失败与恢复”。
+
 
 ### 目录行格式
 
@@ -125,31 +135,78 @@ python3 scripts/run_contrib_demo.py            # 端到端演示（18 项断言�
 - 坏行（空作者名单、非法年份、作者结构损坏、JSON 残缺）逐行说明原因，
   不算作正常论文。
 
-### 贡献核算（精确有理数）
+### 贡献核算（精确有理数，任意精度整数）
 
 每篇计入论文总贡献为 1：先均分给作者（`1/作者数`），作者份额再均分给他能定位到的
 **不同**机构（同一机构多条署名先去重再分）。部分署名能定位时只在已定位机构间分配，
 未定位引用保留待核查；署名全部未定位或无署名的作者，整份记入**待归属**。
-隔离论文不计贡献。分子/分母以精确有理数（HUGEINT）保存，不用小数累计。
+隔离论文不计贡献。
+
+核算在 Python 里用 `fractions.Fraction` 精确累计；落库的分子/分母列是 DuckDB
+`BIGNUM`（任意精度十进制整数），**不会因年度累计超过 int64/int128 被截断、转成浮点
+或拒绝**。展示用小数单独放在 `*_decimal_approx` 列，并带常量列
+`total_decimal_note = approx_display_only` 明确标注“仅近似展示，精确值看分子/分母”；
+精确值另有 `*_text`（如 `422113843906354093775418512493046577809/232862364358497360900063316880507363070`）
+与整数分子/分母列，两者绝不混用。BIGNUM 经 Python 客户端返回十进制字符串，
+核验与导出都按字符串->Python 大整数处理，绝不经过 float。
+
+### 重跑、失败与恢复（不摧毁上一次成功结果）
+
+- 每次运行先写**暂存 schema** `contrib_stage_<批次号>`，当前结果表在切换前完全不动；
+- 暂存结果先做独立核验，再把整套 CSV 导出到 `<out>.staging-<批次号>`（与目标目录
+  同父目录）并回读核验精确分子/分母；
+- 以上全部通过后，才用**一个事务**把暂存表切换为当前表；随后发布 CSV 目录
+  （目录级 rename，旧目录先退为 `<out>.prev-<批次号>`，新目录换入后才删除）；
+- 状态表 `contrib_state` 记录 `running / committed / ready / failed`、批次号、
+  上一成功批次、暂存 schema、临时 CSV 目录，不需要研究人员手工拼库或挑 CSV。
+
+任何一步失败或进程终止后的行为：
+
+| 中断位置 | 保住的完整结果 | 可辨认的未完成数据 | 重启后 |
+|---|---|---|---|
+| 写明细/核验失败 | **上一次成功批次**的库表与 CSV 都原样 | `contrib_state=failed` + `contrib_stage_<批次>` | 自动丢弃暂存 schema，保留旧批次，可再重跑 |
+| 导出中途终止 | 同上（导出只写临时目录 `<out>.staging-<批次>`） | 状态 `running` + 临时目录 | 同上 |
+| 已切换、CSV 未发布 | 库已是**新批次**，CSV 仍是**旧批次**（两份完整结果，不混合） | 状态 `committed` + 临时目录 | 自动完成目录切换并核验，新批次成为唯一当前结果 |
+
+启动时 `recover_pending` 先执行上述收敛，再开始新批次。导出目录里的
+`contrib_manifest.json` 记录批次号与“小数仅近似”的说明；CSV 与库同一批次才算
+完整结果。
+
+### 兼容旧版 HUGEINT 账目
+
+旧版本把分子/分母存成 `HUGEINT`。`--reuse-existing` 会先识别列类型
+（`legacy_hugeint / bignum_v2 / mixed / unknown`），对旧账目先执行同一套独立核验，
+再用暂存/切换链路无损转换成 BIGNUM（逐分数以十进制字符串复制），补齐展示列并重新导出。
+转换前对整个作业库文件做备份（`<out-db>.pre-migration-<时间>.bak`）；转换在事务中进行，
+核验失败或转换出错时回滚、**原账目保持不动**，不会出现半新半旧。
+
 
 ### 交付表（output/contrib/*.csv）
 
 | 表 | 内容 |
 |---|---|
-| `contrib_author_details.csv` | 逐位作者分摊明细：去重来源、作者位置、署名原样、去重后机构、未定位引用、每次除法依据 |
-| `contrib_institution_year.csv` | 按机构、年份汇总的贡献量（精确分数 + 展示用小数） |
-| `contrib_unassigned_year.csv` | 待归属按年汇总 |
+| `contrib_author_details.csv` | 逐位作者分摊明细：去重来源、作者位置、署名原样、去重后机构、未定位引用、每次除法依据；精确分数 `*_num/*_den` + `*_text`，展示小数单列 |
+| `contrib_institution_year.csv` | 按机构、年份汇总的贡献量：精确分子/分母 + `total_text` + 近似展示列（`total_decimal_note` 标注） |
+| `contrib_unassigned_year.csv` | 待归属按年汇总（同样区分精确值与近似展示） |
 | `contrib_papers.csv` / `contrib_paper_versions.csv` | 论文去重结果、选取理由与全部版本差异 |
 | `contrib_quarantine.csv` | 隔离论文及冲突版本 |
 | `contrib_rejected_lines.csv` | 坏行及原因 |
+| `contrib_manifest.json` | 本套 CSV 的批次号、格式版本与“小数仅近似”说明（整套导出完成的标志） |
 
-### 独立核验（--verify / run_contrib_demo.py）
+### 独立核验（--verify / run_contrib_demo.py / run_contrib_regression.py）
 
 不复用核算代码路径，从落库结果反推：每篇计入论文的机构份额 + 待归属份额恰好为 1；
 作者份额 == 1/作者数且分摊结构一致；机构×年份汇总由明细逐行重算可逐项追到作者明细；
 隔离论文零分摊；每年机构汇总 + 待归属 == 该年计入论文数；ok 行恰好进一组、坏行不进组。
-演示另验证：机构库作业前后全表快照一致、目录乱序读入结果签名一致、
-同一目录在不同轮次下的定位差异（轮次即只读对照的版本）。
+另外核验：精确分数列是整数类型且已约分，展示列与精确列分离并标注；年度汇总在
+Python 大整数中按明细重建（覆盖超过 int128 的分数）。
+
+`run_contrib_regression.py` 实际执行并核对：素数 n=2..101 目录的 1/n 精确和跨 int128
+完整保存与导出；另一份不同作者数、多机构分配目录的独立重算；旧 HUGEINT 账目的识别、
+转换与损坏时原账目保留；一次成功后的失败重跑；写明细/导出/发布各中断窗口的重启恢复；
+机构库与历史只读不变。演示另验证：机构库作业前后全表快照一致、目录乱序读入结果
+签名一致、同一目录在不同轮次下的定位差异（轮次即只读对照的版本）。
+
 
 ## 演示场景（run_demo.py，19 项断言全过）
 
@@ -190,7 +247,8 @@ config/er_config.json   全部规则配置（含样例）
 org_er/                 管线包：normalize / rules / entity / pipeline / store / revisions / reference / verifylib
 org_er/contrib/         署名贡献核算子包：normalize / parse / dedup / account / store / verify / job
 scripts/                入口：make_sample_data / build / revise / verify / run_demo
-                        + make_contrib_sample / contrib / run_contrib_demo（核算作业）
-data/                   生成的样本与修订事件、论文目录样本 papers.jsonl
+                        + make_contrib_sample / contrib / run_contrib_demo / run_contrib_regression（核算作业）
+data/                   生成的样本与修订事件、论文目录样本 papers.jsonl、
+                        旧版 HUGEINT 账目固定样本 legacy_contrib_hugeint.duckdb
 output/                 DuckDB 库与导出的交付表（含 output/contrib/ 核算交付表）
 ```
