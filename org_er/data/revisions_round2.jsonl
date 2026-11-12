@@ -1,0 +1,1 @@
+{"op": "upsert", "record": {"source": "dir_a", "source_key": "A-4001", "legal_name": "Umbrella Health", "country_code": "GB", "website_host": "", "registration_no": "44-444-444", "scenario": "S5_regno_revision"}}

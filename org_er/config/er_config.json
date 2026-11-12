@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "description": "机构实体解析配置：规范化、注册号合法性判定、占位值排除、域名证据排除、相似度算法与阈值、阻塞参数。所有匹配行为由本文件决定且确定。",
+
+  "normalization": {
+    "unicode_form": "NFKC",
+    "strip_www": true,
+    "regno_strip_pattern": "[\\s\\-.]",
+    "legal_form_tokens": [
+      "ltd", "limited", "inc", "incorporated", "corp", "corporation",
+      "co", "company", "llc", "llp", "lp", "plc", "gmbh", "ag", "kg",
+      "ohg", "sa", "sarl", "sas", "spa", "srl", "bv", "nv", "ab", "oy",
+      "as", "pte", "pty", "kk", "sl",
+      "有限公司", "有限责任公司", "股份有限公司"
+    ]
+  },
+
+  "registration_rules": {
+    "comment": "合法注册号判定：先规范化（NFKC、大写、按 regno_strip_pattern 去分隔符），再排除占位值，最后按国家正则 fullmatch 判定；无国家规则时用 default 兜底。examples 由验证程序自检。",
+    "default": {
+      "pattern": "^[A-Z0-9]{4,20}$",
+      "examples": {
+        "valid": ["ABC12345"],
+        "invalid": ["12", "???"]
+      }
+    },
+    "US": {
+      "pattern": "^\\d{9}$",
+      "examples": {
+        "valid": ["123456789", "12-3456789"],
+        "invalid": ["12345678", "1234567890", "abcdefghi", "999999999"]
+      }
+    },
+    "GB": {
+      "pattern": "^\\d{8}$",
+      "examples": {
+        "valid": ["12345678", "12-345-678"],
+        "invalid": ["1234567", "123456789", "00000000"]
+      }
+    },
+    "CN": {
+      "pattern": "^[0-9A-Z]{18}$",
+      "examples": {
+        "valid": ["91110000MA01C8XW3T", "９１１１００００ＭＡ０１Ｃ８ＸＷ３Ｔ"],
+        "invalid": ["91110000MA01C8XW", "91110000MA01C8XW3TX"]
+      }
+    },
+    "DE": {
+      "pattern": "^(HRB|HRA)\\d{1,6}$",
+      "examples": {
+        "valid": ["HRB12345", "hra 987"],
+        "invalid": ["HRB", "XX123"]
+      }
+    }
+  },
+
+  "placeholder_regnos": ["", "-", "--", "N/A", "NA", "NONE", "NULL", "UNKNOWN", "TBD", "TBC", "PENDING", "NOT PROVIDED"],
+  "placeholder_patterns": ["^0+$", "^9{9,}$", "^X+$"],
+
+  "domain_evidence": {
+    "comment": "命中以下名单（精确或子域名）的 website_host 不构成匹配证据：免费邮箱域、共享托管域。",
+    "free_email_domains": [
+      "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "icloud.com",
+      "aol.com", "proton.me", "mail.com", "163.com", "qq.com"
+    ],
+    "shared_hosting_domains": [
+      "wordpress.com", "wixsite.com", "myshopify.com", "github.io",
+      "sites.google.com", "blogspot.com", "weebly.com", "squarespace.com",
+      "webflow.io", "tripod.com"
+    ]
+  },
+
+  "similarity": {
+    "algorithm": "token_jaccard",
+    "threshold": 0.5,
+    "algorithms_available": ["token_jaccard", "token_dice", "levenshtein_ratio"],
+    "comment": "token_jaccard / token_dice 作用于名称 token 集（去法定形式词后）；levenshtein_ratio 作用于规范化名称字符串。"
+  },
+
+  "blocking": {
+    "max_token_block_size": 100000,
+    "comment": "单国家内出现次数超过该值的 token 不再参与倒排阻塞（防止巨块）；不影响注册号/域名索引，因此不影响规则可接受边的完备性。"
+  }
+}

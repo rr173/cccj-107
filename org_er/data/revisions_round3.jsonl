@@ -1,0 +1,1 @@
+{"op": "upsert", "record": {"source": "opencorporates", "source_key": "oc/glx-2", "legal_name": "Globex Limited", "country_code": "GB", "website_host": "globex.co.uk", "registration_no": "22222222", "scenario": "S3_regno_conflict"}}

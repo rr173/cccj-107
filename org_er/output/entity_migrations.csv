@@ -1,0 +1,6 @@
+round_no,record_key,old_entity_id,new_entity_id,change_type
+1,dir_a::A-3001,ent_cc546bf4a25c,,removed
+1,dir_b::B-3002,ent_cc546bf4a25c,ent_0f035e6e76da,split
+1,sec_filings::US-NIM-1,ent_cc546bf4a25c,ent_24f46dc84f57,split
+2,dir_a::A-4001,ent_1538b0f3cb11,ent_e2804e659c1f,merge
+3,opencorporates::oc/glx-2,ent_b9620759d258,ent_fd26dbdc993b,merge

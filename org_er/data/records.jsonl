@@ -1,0 +1,65 @@
+{"source": "companies_house", "source_key": "GB-ACME-1", "legal_name": "Acme Corporation", "country_code": "gb", "website_host": "www.acme-corp.com", "registration_no": "12345678", "scenario": "S1_cross_source_merge"}
+{"source": "opencorporates", "source_key": "oc/998877", "legal_name": "ACME Corp.", "country_code": "GB", "website_host": "acme-corp.com", "registration_no": "12-345-678", "scenario": "S1_cross_source_merge"}
+{"source": "cn_registry", "source_key": "CN-YUNTU-1", "legal_name": "北京云图科技有限公司", "country_code": "cn", "website_host": "yuntu-example.cn", "registration_no": "91110000MA01C8XW3T", "scenario": "S1_unicode_merge"}
+{"source": "opencorporates", "source_key": "oc/cn-55", "legal_name": "北京云图科技", "country_code": "CN", "website_host": "", "registration_no": "９１１１００００ＭＡ０１Ｃ８ＸＷ３Ｔ", "scenario": "S1_unicode_merge"}
+{"source": "handelsregister", "source_key": "DE-QUX-1", "legal_name": "Quixotic GmbH", "country_code": "DE", "website_host": "quixotic.de", "registration_no": "HRB 12345", "scenario": "S1_de_merge"}
+{"source": "opencorporates", "source_key": "oc/de-7", "legal_name": "Quixotic GmbH", "country_code": "de", "website_host": "www.quixotic.de", "registration_no": "HRB12345", "scenario": "S1_de_merge"}
+{"source": "dir_a", "source_key": "A-1001", "legal_name": "Delta Fitness", "country_code": "GB", "website_host": "gmail.com", "registration_no": "N/A", "scenario": "S2_excluded_domain"}
+{"source": "dir_b", "source_key": "B-2002", "legal_name": "Delta Fitness Studio", "country_code": "GB", "website_host": "gmail.com", "registration_no": "", "scenario": "S2_excluded_domain"}
+{"source": "dir_a", "source_key": "A-1002", "legal_name": "Kilo Crafts", "country_code": "US", "website_host": "wordpress.com", "registration_no": "N/A", "scenario": "S2_excluded_domain"}
+{"source": "dir_b", "source_key": "B-2003", "legal_name": "Kilo Crafts", "country_code": "US", "website_host": "wordpress.com", "registration_no": "TBD", "scenario": "S2_excluded_domain"}
+{"source": "companies_house", "source_key": "GB-GLX-1", "legal_name": "Globex Ltd", "country_code": "GB", "website_host": "globex.co.uk", "registration_no": "22222222", "scenario": "S3_regno_conflict"}
+{"source": "opencorporates", "source_key": "oc/glx-2", "legal_name": "Globex Limited", "country_code": "GB", "website_host": "globex.co.uk", "registration_no": "33333333", "scenario": "S3_regno_conflict"}
+{"source": "sec_filings", "source_key": "US-NIM-1", "legal_name": "Nimbus Analytics", "country_code": "US", "website_host": "", "registration_no": "123456789", "scenario": "S4_bridge"}
+{"source": "dir_a", "source_key": "A-3001", "legal_name": "Nimbus Analytics", "country_code": "US", "website_host": "nimbus-analytics.com", "registration_no": "123456789", "scenario": "S4_bridge"}
+{"source": "dir_b", "source_key": "B-3002", "legal_name": "Nimbus Analytics", "country_code": "US", "website_host": "nimbus-analytics.com", "registration_no": "N/A", "scenario": "S4_bridge"}
+{"source": "dir_a", "source_key": "A-4001", "legal_name": "Umbrella Health", "country_code": "GB", "website_host": "", "registration_no": "N/A", "scenario": "S5_regno_revision"}
+{"source": "companies_house", "source_key": "GB-UMB-1", "legal_name": "Umbrella Health", "country_code": "GB", "website_host": "", "registration_no": "44444444", "scenario": "S5_regno_revision"}
+{"source": "cat_us", "source_key": "F-000", "legal_name": "Apex Group Inc", "country_code": "US", "website_host": "", "registration_no": "800000000", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-001", "legal_name": "Apex Trading Ltd", "country_code": "GB", "website_host": "", "registration_no": "10000001", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-002", "legal_name": "Apex Labs GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90002", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-003", "legal_name": "盛嘉贸易有限公司", "country_code": "CN", "website_host": "", "registration_no": "910000000000000003", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-004", "legal_name": "Zenith Labs Inc", "country_code": "US", "website_host": "", "registration_no": "800000004", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-005", "legal_name": "Nova Industries Ltd", "country_code": "GB", "website_host": "", "registration_no": "10000005", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-006", "legal_name": "Nova Partners GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90006", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-007", "legal_name": "宏嘉科技有限公司", "country_code": "CN", "website_host": "fill7.example.com", "registration_no": "910000000000000007", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-008", "legal_name": "Pioneer Partners Inc", "country_code": "US", "website_host": "", "registration_no": "800000008", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-009", "legal_name": "Summit Solutions Ltd", "country_code": "GB", "website_host": "fill9.example.com", "registration_no": "10000009", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-010", "legal_name": "Summit Logistics GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90010", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-011", "legal_name": "瑞嘉科技有限公司", "country_code": "CN", "website_host": "", "registration_no": "910000000000000011", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-012", "legal_name": "Vertex Industries Inc", "country_code": "US", "website_host": "", "registration_no": "800000012", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-013", "legal_name": "Apex Logistics Ltd", "country_code": "GB", "website_host": "", "registration_no": "10000013", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-014", "legal_name": "Global Systems GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90014", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-015", "legal_name": "瑞晟咨询有限公司", "country_code": "CN", "website_host": "", "registration_no": "910000000000000015", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-016", "legal_name": "Global Labs Inc", "country_code": "US", "website_host": "", "registration_no": "800000016", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-017", "legal_name": "United Industries Ltd", "country_code": "GB", "website_host": "", "registration_no": "10000017", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-018", "legal_name": "Nova Systems GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90018", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-019", "legal_name": "盛恒贸易有限公司", "country_code": "CN", "website_host": "", "registration_no": "910000000000000019", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-020", "legal_name": "Zenith Logistics Inc", "country_code": "US", "website_host": "", "registration_no": "800000020", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-021", "legal_name": "United Systems Ltd", "country_code": "GB", "website_host": "fill21.example.com", "registration_no": "10000021", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-022", "legal_name": "United Solutions GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90022", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-023", "legal_name": "锦盛物流有限公司", "country_code": "CN", "website_host": "fill23.example.com", "registration_no": "910000000000000023", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-024", "legal_name": "Global Works Inc", "country_code": "US", "website_host": "", "registration_no": "800000024", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-025", "legal_name": "Apex Group Ltd", "country_code": "GB", "website_host": "", "registration_no": "10000025", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-026", "legal_name": "Global Logistics GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90026", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-027", "legal_name": "宏博咨询有限公司", "country_code": "CN", "website_host": "", "registration_no": "910000000000000027", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-028", "legal_name": "Pioneer Group Inc", "country_code": "US", "website_host": "", "registration_no": "800000028", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-029", "legal_name": "Zenith Solutions Ltd", "country_code": "GB", "website_host": "", "registration_no": "10000029", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-030", "legal_name": "Prime Works GmbH", "country_code": "DE", "website_host": "fill30.example.com", "registration_no": "HRB90030", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-031", "legal_name": "华瑞物流有限公司", "country_code": "CN", "website_host": "", "registration_no": "910000000000000031", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-032", "legal_name": "Pioneer Ventures Inc", "country_code": "US", "website_host": "", "registration_no": "800000032", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-033", "legal_name": "Pioneer Logistics Ltd", "country_code": "GB", "website_host": "", "registration_no": "10000033", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-034", "legal_name": "Orion Works GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90034", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-035", "legal_name": "恒晟科技有限公司", "country_code": "CN", "website_host": "", "registration_no": "910000000000000035", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-036", "legal_name": "Zenith Ventures Inc", "country_code": "US", "website_host": "", "registration_no": "800000036", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-037", "legal_name": "Zenith Labs Ltd", "country_code": "GB", "website_host": "", "registration_no": "10000037", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-038", "legal_name": "Pioneer Industries GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90038", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-039", "legal_name": "宏嘉物流有限公司", "country_code": "CN", "website_host": "", "registration_no": "910000000000000039", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-040", "legal_name": "Pioneer Industries Inc", "country_code": "US", "website_host": "fill40.example.com", "registration_no": "800000040", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-041", "legal_name": "Orion Solutions Ltd", "country_code": "GB", "website_host": "", "registration_no": "10000041", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-042", "legal_name": "Pioneer Industries GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90042", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-043", "legal_name": "瑞辰咨询有限公司", "country_code": "CN", "website_host": "", "registration_no": "910000000000000043", "scenario": "filler"}
+{"source": "cat_us", "source_key": "F-044", "legal_name": "Zenith Systems Inc", "country_code": "US", "website_host": "", "registration_no": "800000044", "scenario": "filler"}
+{"source": "cat_gb", "source_key": "F-045", "legal_name": "Apex Labs Ltd", "country_code": "GB", "website_host": "", "registration_no": "10000045", "scenario": "filler"}
+{"source": "cat_de", "source_key": "F-046", "legal_name": "Global Works GmbH", "country_code": "DE", "website_host": "", "registration_no": "HRB90046", "scenario": "filler"}
+{"source": "cat_cn", "source_key": "F-047", "legal_name": "恒嘉贸易有限公司", "country_code": "CN", "website_host": "fill47.example.com", "registration_no": "910000000000000047", "scenario": "filler"}
