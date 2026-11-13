@@ -1,0 +1,5 @@
+sample_key,target_id,polarity,mz,ppm,window_start_seconds,window_end_seconds,background,area,covered_seconds,window_seconds,coverage_ratio,status,n_segments,n_scans,note
+GOOD,T1,positive,100,5,15,105,200,8755.24755501,30,90,0.333333333333,partial,4,7,信号积分（强度×秒，已减背景的非负部分），不是已校准的浓度；absent 表示窗口内完全没有可积分线段，area 留空，与真实零面积不同
+GOOD,T2,negative,200,5,10,70,400,3080,48,60,0.8,partial,4,5,信号积分（强度×秒，已减背景的非负部分），不是已校准的浓度；absent 表示窗口内完全没有可积分线段，area 留空，与真实零面积不同
+GOOD,T3,positive,300,10,10,30,0,0,20,20,1,complete,2,7,信号积分（强度×秒，已减背景的非负部分），不是已校准的浓度；absent 表示窗口内完全没有可积分线段，area 留空，与真实零面积不同
+GOOD,T4,positive,100,5,35,55,0,,0,20,0,absent,0,7,信号积分（强度×秒，已减背景的非负部分），不是已校准的浓度；absent 表示窗口内完全没有可积分线段，area 留空，与真实零面积不同

@@ -1,0 +1,40 @@
+{
+  "targets": [
+    {
+      "target_id": "T1",
+      "mz": 100.0,
+      "ppm": 5.0,
+      "polarity": "positive",
+      "window_start_seconds": 15.0,
+      "window_end_seconds": 105.0,
+      "background": 200.0
+    },
+    {
+      "target_id": "T2",
+      "mz": 200.0,
+      "ppm": 5.0,
+      "polarity": "negative",
+      "window_start_seconds": 10.0,
+      "window_end_seconds": 70.0,
+      "background": 400.0
+    },
+    {
+      "target_id": "T3",
+      "mz": 300.0,
+      "ppm": 10.0,
+      "polarity": "positive",
+      "window_start_seconds": 10.0,
+      "window_end_seconds": 30.0,
+      "background": 0.0
+    },
+    {
+      "target_id": "T4",
+      "mz": 100.0,
+      "ppm": 5.0,
+      "polarity": "positive",
+      "window_start_seconds": 35.0,
+      "window_end_seconds": 55.0,
+      "background": 0.0
+    }
+  ]
+}

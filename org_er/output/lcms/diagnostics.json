@@ -1,0 +1,67 @@
+{
+  "diagnostics": [
+    {
+      "sample_key": "BAD_bad_zlib",
+      "mzml_path": "bad_zlib.mzML",
+      "status": "rejected",
+      "stage": "mzml",
+      "reason": "spectrum[0] binaryDataArray[0]: zlib 解压失败: Error -3 while decompressing data: incorrect header check"
+    },
+    {
+      "sample_key": "BAD_duplicate_time",
+      "mzml_path": "bad_duplicate_time.mzML",
+      "status": "rejected",
+      "stage": "mzml",
+      "reason": "positive 极性的 MS1 时间未严格递增: 上一扫描 t=10.0s，当前 spectrum[1] t=10.0s（不静默排序或合并重复时间）"
+    },
+    {
+      "sample_key": "BAD_length_mismatch",
+      "mzml_path": "bad_length_mismatch.mzML",
+      "status": "rejected",
+      "stage": "mzml",
+      "reason": "spectrum[0] binaryDataArray[0]: 数组长度 3 与 defaultArrayLength=6 不符"
+    },
+    {
+      "sample_key": "BAD_missing_group",
+      "mzml_path": "bad_missing_group.mzML",
+      "status": "rejected",
+      "stage": "mzml",
+      "reason": "spectrum[0]: 引用了不存在的 referenceableParamGroup id='pg_ghost'"
+    },
+    {
+      "sample_key": "BAD_no_centroid",
+      "mzml_path": "bad_no_centroid.mzML",
+      "status": "rejected",
+      "stage": "mzml",
+      "reason": "spectrum[0]: MS1 缺少明确 centroid (MS:1000127) 标记，拒绝靠默认值猜测"
+    },
+    {
+      "sample_key": "BAD_numpress",
+      "mzml_path": "bad_numpress.mzML",
+      "status": "rejected",
+      "stage": "mzml",
+      "reason": "spectrum[0] binaryDataArray[0]: 不支持的编码 Numpress linear prediction (MS:1002312)，本作业仅实现无压缩/zlib"
+    },
+    {
+      "sample_key": "BAD_polarity_conflict",
+      "mzml_path": "bad_polarity_conflict.mzML",
+      "status": "rejected",
+      "stage": "mzml",
+      "reason": "spectrum[0]: 正/负极性互斥声明同时出现 (MS:1000130 与 MS:1000129)"
+    },
+    {
+      "sample_key": "BAD_profile",
+      "mzml_path": "bad_profile.mzML",
+      "status": "rejected",
+      "stage": "mzml",
+      "reason": "spectrum[0]: profile MS1 明确拒绝，本作业只分析 centroid MS1"
+    },
+    {
+      "sample_key": "BAD_truncated",
+      "mzml_path": "bad_truncated.mzML",
+      "status": "rejected",
+      "stage": "mzml",
+      "reason": "mzML XML 解析失败（残缺或不合法 XML）: unclosed token: line 1, column 7841"
+    }
+  ]
+}

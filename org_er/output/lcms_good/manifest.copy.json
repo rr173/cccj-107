@@ -1,0 +1,13 @@
+{
+  "batch_id": "lcms_demo",
+  "samples": [
+    {
+      "sample_key": "S1",
+      "mzml_path": "good_a.mzML"
+    },
+    {
+      "sample_key": "S2",
+      "mzml_path": "good_b.mzML"
+    }
+  ]
+}

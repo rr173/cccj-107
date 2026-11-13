@@ -1,0 +1,1 @@
+{"samples": [{"sample_key": "GOOD", "mzml_path": "good_a.mzML"}, {"sample_key": "LATEFAIL", "mzml_path": "bad_late.mzML"}]}

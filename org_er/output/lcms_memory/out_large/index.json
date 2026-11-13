@@ -1,0 +1,36 @@
+{
+  "batch_id": "scale_large",
+  "manifest": "/workspace/org_er/output/lcms_memory/manifest_large.json",
+  "targets_path": "/workspace/org_er/output/lcms_memory/targets_large.json",
+  "max_gap_seconds": 1.0,
+  "n_samples_listed": 1,
+  "n_completed": 1,
+  "n_diagnostics": 0,
+  "targets": [
+    {
+      "target_id": "SCALE",
+      "mz": 100.0,
+      "ppm": 5.0,
+      "polarity": "positive",
+      "window_start_seconds": 0.0,
+      "window_end_seconds": 3999.0,
+      "background": 0.0,
+      "mz_window_low": 99.9995,
+      "mz_window_high": 100.0005
+    }
+  ],
+  "samples": [
+    {
+      "sample_key": "K_large",
+      "mzml_path": "scale_large.mzML",
+      "status": "ok",
+      "n_ms1_scans": 4000,
+      "n_ms1_by_polarity": {
+        "positive": 4000
+      },
+      "detail_file": "details/K_large.csv",
+      "summary_rows": 1
+    }
+  ],
+  "signal_note": "信号积分（强度×秒，已减背景的非负部分），不是已校准的浓度；absent 表示窗口内完全没有可积分线段，area 留空，与真实零面积不同"
+}

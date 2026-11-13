@@ -380,6 +380,86 @@ secondary/supplementary、只有 secondary 的组、缺端、重复 first-mate�
 （未知操作/消耗不符/内部裁剪）、duplicate+multimapping+low_mapq 同时命中的优先级。
 
 
+## 离线 LC-MS 目标离子提取（org_er.lcms）：mzML -> 目标离子色谱 -> 时间窗积分
+
+不借助厂商软件、不做化合物自动鉴定：按标准命名空间与受控词汇（PSI-MS/UO）流式
+解码 mzML，对每个目标取闭 m/z 窗内全部峰强度形成扫描信号，再在时间窗内做分段
+线性积分，输出每个样本/目标的**信号**面积（强度×秒，非已校准浓度）、覆盖率与
+complete/partial/absent 状态。依赖仅 numpy（`requirements-lcms.txt`）。
+
+```bash
+python3 -m pip install -r requirements-lcms.txt
+python3 scripts/make_lcms_sample.py          # 生成微型 mzML 夹具（data/lcms/，可跳过）
+python3 scripts/lcms.py --manifest data/lcms/manifest.json \
+                        --targets  data/lcms/targets.json \
+                        --out      output/lcms --max-gap-seconds 15
+python3 scripts/lcms.py --out output/lcms --show                 # 读回批次汇总
+python3 scripts/lcms.py --out output/lcms --locate S1 --spectrum 2   # 定位某扫描的目标信号
+python3 scripts/run_lcms_demo.py             # 端到端演示（10 组断言全过）
+python3 scripts/run_lcms_reference_check.py  # 独立标量参考交叉核对（不 import 生产解码/积分）
+python3 scripts/run_lcms_memory_check.py     # 扫描数 20x 的峰值内存实测
+```
+
+### 输入（路径相对清单所在目录解析；JSON/CSV/TSV 均可）
+
+- 清单：`sample_key` + `mzml_path`，样本键唯一；
+- 目标表每项：唯一 `target_id`、正的 `mz` 与 `ppm`、`polarity`（positive/negative）、
+  窗口起止秒数（窗长为正）、非负常数 `background`；所有目标值必须有限。
+
+### mzML 解码（受控词汇驱动，不靠标签次序）
+
+- 只按标准命名空间下 cvParam 的 **accession** 辨认事实；支持直接写在节点内的
+  cvParam，也支持 `referenceableParamGroupRef`（可嵌套；引用不存在/成环即输入失败）；
+- 同一事实互斥声明（如正负极性同时出现、两个 m/z array）直接拒绝；
+- 只分析带**明确 centroid 标记的 MS1**：MS2 跳过，profile MS1 明确拒绝，无
+  centroiding 标记的 MS1 拒绝靠默认值猜测；每条参与分析的扫描必须确定唯一极性；
+- scan start time 的秒（UO:0000010）与分钟（UO:0000031）统一换算为秒；
+- m/z 与 intensity 数组按类型访问号（MS:1000514/1000515）辨认，base64 后按无压缩
+  （MS:1000576）或 zlib（MS:1000574）处理，再按声明的 32/64 位 IEEE 小端浮点
+  （MS:1000521/1000523）解释；**两个数组可有不同精度与压缩**；数组长度必须与
+  `defaultArrayLength` 相符，长度为 0 的合法扫描也保留时间点；
+- Numpress 等未支持编码报出**具体原因**，绝不把未知字节当浮点数；坏 base64/zlib、
+  残缺 XML、m/z 递减、强度为负/非有限都属于输入失败。
+
+### 扫描信号与时间序列
+
+- 对每个扫描和同极性目标，取闭区间 `mz×(1±ppm/1e6)` 内**所有**峰的强度之和；
+  无命中是实际观测到的 0（不是缺测）；重复 m/z 的峰都计入；
+- 两种极性扫描可交错，但各自参与分析的 MS1 时间必须**严格递增**：重复/回退时间
+  直接失败，不静默排序或合并；
+- 时间—强度明细逐扫描顺序写盘（`details/<sample>.csv`），可核对面积来自哪些扫描。
+
+### 积分规则（不是扫描点直接相加）
+
+- 同极性相邻扫描时间差 `<= max_gap_seconds` 才在二者间线性插值；更大间隙没有可
+  积分信号，**禁止跨间隙拉直线，也绝不外推**；空数组扫描的 0 仍参与连线；
+- 可用线段与目标时间窗取交集，窗端点落在扫描之间时只在对应线段内插值，不借窗外
+  远处的点填缺口；
+- 在交集上积分 `max(插值强度 - background, 0)`；线段穿过背景值时先求交点再积分
+  剩余三角形，**不先把两端截零再做整个梯形**；
+- 状态：窗口完整被线段覆盖为 `complete`；覆盖正时长但不完整为 `partial`（只报实际
+  覆盖部分面积）；完全没有可积时长为 `absent`（面积留空）。真实覆盖而信号全 0 时
+  面积为 0（如演示中的 T3，complete + area=0），与 absent 严格区分。
+
+### 流式内存与失败隔离
+
+iterparse 增量解析，每个 spectrum 处理完即从 DOM 摘除并释放，扫描数组用完即释放；
+除参数定义与目标配置外只保留每极性上一个扫描时间与各目标累计积分状态，不积存
+全部谱图或完整色谱。实测扫描数 20 倍（200→4000）、单谱规模不变时峰值 RSS 持平
+（1.00x），明细/输出文件随扫描数线性增长。样本在文件后段失败时不产汇总行、半成品
+明细被删除，只进 `diagnostics.json`；批内其他样本照常完成，批命令以非零状态
+（退出码 4）提示有失败；产物先写暂存目录，整批结束才换入，上一次成功结果保持原样。
+
+### 人工夹具与独立核对（run_lcms_reference_check.py，158 项检查）
+
+夹具覆盖参数组引用、32/64 位混合精度、none/zlib 混合压缩、分钟时间、交错极性、
+ppm 闭区间边界、同质量多峰、非等距时间、穿背景交点、长间隙与合法空扫描；另含 9 个
+必拒夹具（profile、无 centroid、长度错配、重复时间、坏 zlib、缺失参数组、残缺 XML、
+极性互斥、Numpress）。参考程序用标准库**独立解码**并从已知峰表/分段直线标量重算
+期望，不 import 任何生产解码或积分函数；另附完全手写的面积/状态锚点，同时约束生产
+输出与参考实现。
+
+
 ## 演示场景（run_demo.py，19 项断言全过）
 
 1. **S1 跨来源同机构合并**：GB（强边+弱边双证据，强边优先）、CN（全角注册号经 NFKC 规范化后相同）、DE；
@@ -420,13 +500,17 @@ org_er/                 管线包：normalize / rules / entity / pipeline / stor
 org_er/contrib/         署名贡献核算子包：normalize / parse / dedup / account / store / verify / job
 org_er/volprep/         体数据整备子包：geometry / resample / manifest / job / reference / selfcheck
 org_er/rnaseq/          RNA-seq 片段计数子包：annotation / intervaltree / cigar / counting / outputs
+org_er/lcms/            LC-MS 提取子包：cv / mzml / targets / extract / integral / job / errors
 scripts/                入口：make_sample_data / build / revise / verify / run_demo
                         + make_contrib_sample / contrib / run_contrib_demo / run_contrib_regression（核算作业）
                         + volprep / run_volprep_demo（体数据整备）
                         + rnaseq / make_rnaseq_sample / run_rnaseq_demo / run_rnaseq_reference_check
                           / run_rnaseq_sparse_check（RNA-seq 计数）
+                        + lcms / make_lcms_sample / run_lcms_demo / run_lcms_reference_check
+                          / run_lcms_memory_check（LC-MS 提取）
 requirements-volprep.txt 体数据整备依赖（numpy、nibabel）
 requirements-rnaseq.txt RNA-seq 计数依赖（pysam）
+requirements-lcms.txt   LC-MS 提取依赖（numpy）
 data/                   生成的样本与修订事件、论文目录样本 papers.jsonl、
                         旧版 HUGEINT 账目固定样本 legacy_contrib_hugeint.duckdb、
                         RNA-seq 人工夹具 data/rnaseq/（GTF/SAM/BAM/样本表/故障夹具）

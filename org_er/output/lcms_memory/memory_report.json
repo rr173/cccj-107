@@ -1,0 +1,24 @@
+{
+  "results": {
+    "small": {
+      "n_scans": 200,
+      "file_mb": 0.46,
+      "peak_rss_mb": 26.5,
+      "detail_rows": 200,
+      "status": "complete",
+      "area": 1990.0
+    },
+    "large": {
+      "n_scans": 4000,
+      "file_mb": 9.18,
+      "peak_rss_mb": 26.4,
+      "detail_rows": 4000,
+      "status": "complete",
+      "area": 39990.0
+    }
+  },
+  "ratio_scans": 20.0,
+  "ratio_file_size": 19.956521739130434,
+  "ratio_peak_rss": 0.9962264150943396,
+  "passed": true
+}

@@ -1,0 +1,82 @@
+{
+  "batch_id": "lcms_demo",
+  "manifest": "/workspace/org_er/data/lcms/manifest_good_only.json",
+  "targets_path": "data/lcms/targets.json",
+  "max_gap_seconds": 15.0,
+  "n_samples_listed": 2,
+  "n_completed": 2,
+  "n_diagnostics": 0,
+  "targets": [
+    {
+      "target_id": "T1",
+      "mz": 100.0,
+      "ppm": 5.0,
+      "polarity": "positive",
+      "window_start_seconds": 15.0,
+      "window_end_seconds": 105.0,
+      "background": 200.0,
+      "mz_window_low": 99.9995,
+      "mz_window_high": 100.0005
+    },
+    {
+      "target_id": "T2",
+      "mz": 200.0,
+      "ppm": 5.0,
+      "polarity": "negative",
+      "window_start_seconds": 10.0,
+      "window_end_seconds": 70.0,
+      "background": 400.0,
+      "mz_window_low": 199.999,
+      "mz_window_high": 200.001
+    },
+    {
+      "target_id": "T3",
+      "mz": 300.0,
+      "ppm": 10.0,
+      "polarity": "positive",
+      "window_start_seconds": 10.0,
+      "window_end_seconds": 30.0,
+      "background": 0.0,
+      "mz_window_low": 299.997,
+      "mz_window_high": 300.00300000000004
+    },
+    {
+      "target_id": "T4",
+      "mz": 100.0,
+      "ppm": 5.0,
+      "polarity": "positive",
+      "window_start_seconds": 35.0,
+      "window_end_seconds": 55.0,
+      "background": 0.0,
+      "mz_window_low": 99.9995,
+      "mz_window_high": 100.0005
+    }
+  ],
+  "samples": [
+    {
+      "sample_key": "S1",
+      "mzml_path": "good_a.mzML",
+      "status": "ok",
+      "n_ms1_scans": 12,
+      "n_ms1_by_polarity": {
+        "positive": 7,
+        "negative": 5
+      },
+      "detail_file": "details/S1.csv",
+      "summary_rows": 4
+    },
+    {
+      "sample_key": "S2",
+      "mzml_path": "good_b.mzML",
+      "status": "ok",
+      "n_ms1_scans": 12,
+      "n_ms1_by_polarity": {
+        "positive": 7,
+        "negative": 5
+      },
+      "detail_file": "details/S2.csv",
+      "summary_rows": 4
+    }
+  ],
+  "signal_note": "信号积分（强度×秒，已减背景的非负部分），不是已校准的浓度；absent 表示窗口内完全没有可积分线段，area 留空，与真实零面积不同"
+}

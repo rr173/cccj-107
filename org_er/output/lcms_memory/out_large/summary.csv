@@ -1,0 +1,2 @@
+sample_key,target_id,polarity,mz,ppm,window_start_seconds,window_end_seconds,background,area,covered_seconds,window_seconds,coverage_ratio,status,n_segments,n_scans,note
+K_large,SCALE,positive,100,5,0,3999,0,39990,3999,3999,1,complete,3999,4000,信号积分（强度×秒，已减背景的非负部分），不是已校准的浓度；absent 表示窗口内完全没有可积分线段，area 留空，与真实零面积不同

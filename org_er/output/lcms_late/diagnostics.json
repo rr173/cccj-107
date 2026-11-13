@@ -1,0 +1,11 @@
+{
+  "diagnostics": [
+    {
+      "sample_key": "LATEFAIL",
+      "mzml_path": "bad_late.mzML",
+      "status": "rejected",
+      "stage": "mzml",
+      "reason": "spectrum[11] binaryDataArray[0]: base64 数据不合法: Only base64 data is allowed"
+    }
+  ]
+}
