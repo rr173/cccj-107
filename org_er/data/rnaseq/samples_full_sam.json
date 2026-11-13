@@ -1,0 +1,1 @@
+{"samples": [{"sample": "s1full", "alignment": "s1_unstranded.sam", "library": "unstranded"}, {"sample": "s2", "alignment": "s2_forward.sam", "library": "forward"}, {"sample": "s3", "alignment": "s3_reverse.sam", "library": "reverse"}]}

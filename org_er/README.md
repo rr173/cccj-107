@@ -300,6 +300,86 @@ Python 大整数中按明细重建（覆盖超过 int128 的分数）。
 签名一致、同一目录在不同轮次下的定位差异（轮次即只读对照的版本）。
 
 
+## RNA-seq 片段计数（org_er.rnaseq）：GTF + 按 QNAME 排序的 SAM/BAM -> gene×sample 计数矩阵
+
+在**不重新比对**的前提下，按外显子归属统计每个基因在各样本中的片段数。一条双端片段
+合并两端覆盖后至多给一个基因 +1，绝不把一对 mate 算成两次表达证据。依赖仅 pysam
+（`requirements-rnaseq.txt`）。
+
+```bash
+python3 -m pip install -r requirements-rnaseq.txt
+python3 scripts/make_rnaseq_sample.py          # 生成小型人工 GTF/SAM/BAM 夹具（data/rnaseq/）
+python3 scripts/rnaseq.py --gtf   data/rnaseq/demo.gtf \
+                           --samples data/rnaseq/samples.json \
+                           --out   output/rnaseq --min-mapq 10
+python3 scripts/rnaseq.py --explain --out output/rnaseq --sample s1 --qname fragC   # 查某片段为何这样判
+python3 scripts/run_rnaseq_demo.py             # 端到端演示与回归（118 项断言全过）
+python3 scripts/run_rnaseq_reference_check.py data/rnaseq/demo.gtf \
+                           data/rnaseq/samples.json output/rnaseq   # 独立逐碱基解释器交叉核对
+python3 scripts/run_rnaseq_sparse_check.py     # 大坐标稀疏注释的存储实测
+```
+
+### 注释模型（0-based 半开，内部统一）
+
+- GTF 坐标是 1-based 包含，读入即转成 0-based 半开（`start0=start1-1, end0=end1`）；
+- 基因只由 `exon` 行的 `gene_id` 定义；同一基因的重复/重叠外显子（多转录本）先按
+  染色体、链取**并集**；同一 `gene_id` 出现在不一致的染色体或链上 -> 注释整体报错；
+- 基因之间允许外显子交叠：索引返回**全部**命中基因，绝不按注释行序选一个。
+
+### CIGAR 决定覆盖（不把剪接间隙当覆盖）
+
+`M/=/X` 贡献参考碱基；`D` 只推进参考不贡献；`N` 跨过内含子不贡献；`I/S` 只推进读段；
+`H/P` 什么都不推进。操作串合法性与参考/读段消耗长度均被校验，非法记录归 `malformed`
+并保留原因。因此坐落在内含子中的嵌套基因不会被一条剪接比对误计。
+
+### 片段分组与互斥去向（固定优先级，每 QNAME 恰好一项）
+
+同 QNAME 记录连续成组、组结束立即判定，记录流只保留当前组。secondary/supplementary
+忽略并保留统计；全组无 primary 单列 `ignored_only`。剩余 primary 必须是单个未配对记录，
+或恰好一条 first-mate + 一条 second-mate；缺端、重复端、配对标志矛盾归 `malformed`。
+互斥去向按优先级判定：
+
+```
+malformed > unmapped > duplicate > multimapping(NH>1) > low_mapq > chimeric
+          > no_feature > ambiguous > assigned
+```
+
+双端落在不同染色体为 `chimeric`；链模式 `unstranded/forward/reverse`：单端以自身方向、
+双端以 first-mate 方向为准，forward 只收同链基因、reverse 只收反链基因。任一覆盖碱基
+落入某基因外显子并集即纳入候选：空集 `no_feature`、多基因 `ambiguous`（不按长度投票、
+不分摊小数）、唯一才 `assigned` +1。
+
+### 产物（整目录一次发布，失败不冒充完成）
+
+| 文件 | 内容 |
+|---|---|
+| `counts.csv` | gene×sample **整数**矩阵，注释中的零计数基因照样保留；矩阵总和 == assigned |
+| `summary.csv` | 每样本 9 个互斥状态 + ignored_only + 合计分区校验 + matrix_sum |
+| `fragments/<sample>.jsonl` | 逐片段：状态、原因、候选基因、归属基因、合并后的判定比对块、被忽略记录 |
+| `run.json` | 运行参数、样本快照与“矩阵总和 == assigned”全局校验 |
+
+### 故障即非零退出（不隐式重排、不出假矩阵）
+
+- 输入未按 QNAME **字节序**非递减排列 -> 退出码 3，错误信息带两个 QNAME 与记录序号；
+- BAM 无法打开/截断、记录结构损坏 -> 退出码 4，带文件与记录定位；
+- 注释/样本表错误 -> 退出码 2。产物先写暂存目录，失败时上一次成功结果保持不动。
+
+### 独立核验与存储特性
+
+- `run_rnaseq_reference_check.py` **不 import 生产的区间树/CIGAR 代码**，自带正则 CIGAR
+  解码并把小范围注释逐碱基展开成 Python set 重算，逐片段核对状态、候选、归属与矩阵；
+- 注释索引是静态区间树，节点/负载只与外显子区间数同阶，与坐标绝对值和染色体长度无关：
+  500 个 10^15 量级稀疏基因的完整索引实测约 680 KiB（约 1.4 KB/基因），逐碱基集合方案
+  即使只展开外显子也要 24 MiB 以上，按整条染色体展开则完全不可行。
+
+### 人工夹具覆盖的易错情形（全部在 118 项断言中）
+
+同基因重复外显子、双端共盖同一外显子（重叠只算一次）、剪接间隙中嵌套别的基因、
+删除跨过外显子、同区域正反链基因、两基因共同命中（歧义不分摊）、primary 旁夹
+secondary/supplementary、只有 secondary 的组、缺端、重复 first-mate、非法 CIGAR
+（未知操作/消耗不符/内部裁剪）、duplicate+multimapping+low_mapq 同时命中的优先级。
+
+
 ## 演示场景（run_demo.py，19 项断言全过）
 
 1. **S1 跨来源同机构合并**：GB（强边+弱边双证据，强边优先）、CN（全角注册号经 NFKC 规范化后相同）、DE；
@@ -339,11 +419,17 @@ config/er_config.json   全部规则配置（含样例）
 org_er/                 管线包：normalize / rules / entity / pipeline / store / revisions / reference / verifylib
 org_er/contrib/         署名贡献核算子包：normalize / parse / dedup / account / store / verify / job
 org_er/volprep/         体数据整备子包：geometry / resample / manifest / job / reference / selfcheck
+org_er/rnaseq/          RNA-seq 片段计数子包：annotation / intervaltree / cigar / counting / outputs
 scripts/                入口：make_sample_data / build / revise / verify / run_demo
                         + make_contrib_sample / contrib / run_contrib_demo / run_contrib_regression（核算作业）
                         + volprep / run_volprep_demo（体数据整备）
+                        + rnaseq / make_rnaseq_sample / run_rnaseq_demo / run_rnaseq_reference_check
+                          / run_rnaseq_sparse_check（RNA-seq 计数）
 requirements-volprep.txt 体数据整备依赖（numpy、nibabel）
+requirements-rnaseq.txt RNA-seq 计数依赖（pysam）
 data/                   生成的样本与修订事件、论文目录样本 papers.jsonl、
-                        旧版 HUGEINT 账目固定样本 legacy_contrib_hugeint.duckdb
-output/                 DuckDB 库与导出的交付表（含 output/contrib/ 核算交付表、output/volprep/ 整备产物）
+                        旧版 HUGEINT 账目固定样本 legacy_contrib_hugeint.duckdb、
+                        RNA-seq 人工夹具 data/rnaseq/（GTF/SAM/BAM/样本表/故障夹具）
+output/                 DuckDB 库与导出的交付表（含 output/contrib/ 核算交付表、
+                        output/volprep/ 整备产物、output/rnaseq/ 计数矩阵与逐片段判定）
 ```

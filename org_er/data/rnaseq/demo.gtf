@@ -1,0 +1,14 @@
+# 人工小注释：坐标为 1-based 包含；重复/重叠 exon 行用于验证并集逻辑
+chr1	demo	exon	100	150	.	+	.	gene_id "gA"; transcript_id "tA1";
+chr1	demo	exon	100	150	.	+	.	gene_id "gA"; transcript_id "tA1";
+chr1	demo	exon	120	150	.	+	.	gene_id "gA"; transcript_id "tA2";
+chr1	demo	exon	200	260	.	+	.	gene_id "gA"; transcript_id "tA1";
+chr1	demo	exon	210	240	.	+	.	gene_id "gA"; transcript_id "tA2";
+chr1	demo	exon	160	190	.	-	.	gene_id "gB"; transcript_id "tB1";
+chr1	demo	exon	300	340	.	+	.	gene_id "gC"; transcript_id "tC1";
+chr1	demo	exon	380	420	.	+	.	gene_id "gC"; transcript_id "tC1";
+chr1	demo	exon	130	160	.	-	.	gene_id "gD"; transcript_id "tD1";
+chr1	demo	exon	420	480	.	+	.	gene_id "gE"; transcript_id "tE1";
+chr1	demo	exon	460	520	.	-	.	gene_id "gF"; transcript_id "tF1";
+chr1	demo	exon	600	640	.	+	.	gene_id "gG"; transcript_id "tG1";
+chr2	demo	exon	50	90	.	+	.	gene_id "gH"; transcript_id "tH1";

@@ -1,0 +1,4 @@
+sample	alignment	library
+s1	s1_unstranded.bam	unstranded
+s2	s2_forward.sam	forward
+s3	s3_reverse.sam	reverse

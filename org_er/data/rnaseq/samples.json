@@ -1,0 +1,19 @@
+{
+  "samples": [
+    {
+      "sample": "s1",
+      "alignment": "s1_unstranded.bam",
+      "library": "unstranded"
+    },
+    {
+      "sample": "s2",
+      "alignment": "s2_forward.sam",
+      "library": "forward"
+    },
+    {
+      "sample": "s3",
+      "alignment": "s3_reverse.sam",
+      "library": "reverse"
+    }
+  ]
+}

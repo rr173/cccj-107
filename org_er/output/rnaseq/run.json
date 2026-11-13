@@ -1,0 +1,53 @@
+{
+  "gtf": "/workspace/org_er/data/rnaseq/demo.gtf",
+  "sample_sheet": "/workspace/org_er/data/rnaseq/samples.json",
+  "min_mapq": 10,
+  "statuses": [
+    "malformed",
+    "unmapped",
+    "duplicate",
+    "multimapping",
+    "low_mapq",
+    "chimeric",
+    "no_feature",
+    "ambiguous",
+    "assigned"
+  ],
+  "ignored_only": "ignored_only",
+  "coordinate_convention": "内部与产物中的坐标均为 0-based 半开；GTF 源文件为 1-based 包含",
+  "n_genes": 8,
+  "samples": [
+    {
+      "sample": "s1",
+      "alignment": "s1_unstranded.bam",
+      "library": "unstranded",
+      "min_mapq": 10,
+      "n_qname_groups": 21,
+      "matrix_sum": 8,
+      "matrix_sum_equals_assigned": true
+    },
+    {
+      "sample": "s2",
+      "alignment": "s2_forward.sam",
+      "library": "forward",
+      "min_mapq": 10,
+      "n_qname_groups": 6,
+      "matrix_sum": 3,
+      "matrix_sum_equals_assigned": true
+    },
+    {
+      "sample": "s3",
+      "alignment": "s3_reverse.sam",
+      "library": "reverse",
+      "min_mapq": 10,
+      "n_qname_groups": 6,
+      "matrix_sum": 6,
+      "matrix_sum_equals_assigned": true
+    }
+  ],
+  "global_check": {
+    "matrix_sum": 17,
+    "assigned_total": 17,
+    "ok": true
+  }
+}

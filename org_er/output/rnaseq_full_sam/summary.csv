@@ -1,0 +1,4 @@
+sample,malformed,unmapped,duplicate,multimapping,low_mapq,chimeric,no_feature,ambiguous,assigned,ignored_only,total_groups,check,matrix_sum
+s1full,5,2,1,1,1,1,1,2,8,1,23,ok,8
+s2,0,0,0,1,0,0,2,0,3,0,6,ok,3
+s3,0,0,0,0,0,0,0,0,6,0,6,ok,6
