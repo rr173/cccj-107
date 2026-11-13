@@ -1,0 +1,9 @@
+stratum,psu,n_people,n_respondents,must_include,produces_replicates
+CERT,PSU_4a1505,3,2,true,false
+S1,PSU_38da82,5,4,false,true
+S1,PSU_75350a,5,4,false,true
+S2,PSU_504677,5,4,false,true
+S2,PSU_c228ff,5,3,false,true
+S2,PSU_d5c010,5,4,false,true
+S3,PSU_66abba,3,2,false,true
+S3,PSU_c049c3,4,3,false,true

@@ -1,0 +1,115 @@
+{
+  "batch_id": "dbd63a1b3621",
+  "run_status": "ok",
+  "data_path": "data/survey/tiny.csv",
+  "design_path": "data/survey/tiny_design.json",
+  "data_sha256": "646159322aaf1d1ba10e0ef14cf7bb46f87087a4935da2b3f506a35acd7ffeee",
+  "design_sha256": "5cdc4dea83446ea3033af0ce7aee793324ffd503b493b94f39f1dcab0775ada2",
+  "max_iterations": 100,
+  "tolerance": 1e-12,
+  "population_total": 10.0,
+  "n_people": 6,
+  "n_respondents": 5,
+  "domains": [
+    "da",
+    "db"
+  ],
+  "structure": {
+    "n_strata": 1,
+    "n_psus": 2,
+    "n_people": 6,
+    "n_respondents": 5,
+    "strata": [
+      {
+        "stratum": "T",
+        "n_psu": 2,
+        "n_people": 6,
+        "n_respondents": 5,
+        "must_include": false,
+        "produces_replicates": true,
+        "psus": [
+          "T1",
+          "T2"
+        ],
+        "psu_rows": [
+          {
+            "psu": "T1",
+            "n_people": 4,
+            "n_respondents": 3
+          },
+          {
+            "psu": "T2",
+            "n_people": 2,
+            "n_respondents": 2
+          }
+        ]
+      }
+    ],
+    "must_include_strata": []
+  },
+  "calibration_columns": [
+    {
+      "name": "grp",
+      "categories": [
+        "X",
+        "Y"
+      ],
+      "targets": [
+        6.0,
+        4.0
+      ],
+      "total": 10.0
+    }
+  ],
+  "adjustment": {
+    "cells": [
+      {
+        "adjustment_cell": "E",
+        "n_selected": 6,
+        "n_respondents": 5,
+        "base_weight_selected": 9.0,
+        "base_weight_respondents": 8.0,
+        "multiplier": 1.125,
+        "status": "ok"
+      }
+    ],
+    "n_cells": 1
+  },
+  "calibration": {
+    "status": "ok",
+    "iterations_used": 1,
+    "n_rounds": 1,
+    "max_final_relative_error": 0.0
+  },
+  "n_replicates": 2,
+  "n_replicates_failed": 0,
+  "replicate_failures": [],
+  "checks": {
+    "adjustment_cells_reproducible": true,
+    "calibration_margins_reproducible": true,
+    "point_estimates_reproducible": true,
+    "non_must_include_strata_have_2plus_psus": true,
+    "margins": {
+      "grp": {
+        "X": 6.0,
+        "Y": 4.0
+      }
+    },
+    "must_include_strata_have_no_replicates": true,
+    "replicates_are_one_per_non_must_include_psu": true,
+    "adjustment_multiplier_identity": true
+  },
+  "outputs": [
+    "estimates.csv",
+    "person_weights.csv",
+    "adjustment_cells.csv",
+    "calibration_rounds.csv",
+    "calibration_margins.csv",
+    "strata_psus.csv",
+    "replicates.csv",
+    "replicate_estimates.csv",
+    "diagnostics.json",
+    "design.copy.json",
+    "data.copy.csv"
+  ]
+}

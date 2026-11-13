@@ -1,0 +1,5 @@
+stratum,psu,n_people,n_respondents,must_include,produces_replicates
+L1,L1a,3,3,false,true
+L1,L1b,3,2,false,true
+L2,L2a,2,2,false,true
+L2,L2b,3,2,false,true

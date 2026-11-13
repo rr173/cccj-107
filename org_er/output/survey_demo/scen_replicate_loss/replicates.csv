@@ -1,0 +1,5 @@
+replicate_id,stratum,psu,m_psu,n_deleted,n_people,n_respondents,status,failure_stage,failure_reason,calibration_iterations
+L1::L1a,L1,L1a,2,3,8,6,failed,adjustment,应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格,0
+L1::L1b,L1,L1b,2,3,8,7,ok,,,1
+L2::L2a,L2,L2a,2,2,9,7,failed,calibration,[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0,0
+L2::L2b,L2,L2b,2,3,8,7,ok,,,1

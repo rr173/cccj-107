@@ -1,0 +1,227 @@
+{
+  "batch_id": "0f803bdf9137",
+  "run_status": "ok",
+  "data_path": "/workspace/org_er/output/survey_demo/renamed.csv",
+  "design_path": "data/survey/design.json",
+  "data_sha256": "1cf5d6c4ac817c05b55f7b2737e4a67a49becaf0e91f0cd66f4e67c5061660e9",
+  "design_sha256": "1eda28909f02c608bd2a5963ced569e296bba9cc9f554ccba8d924ee115afb59",
+  "max_iterations": 200,
+  "tolerance": 1e-10,
+  "population_total": 1000.0,
+  "n_people": 35,
+  "n_respondents": 26,
+  "domains": [
+    "island",
+    "metro",
+    "nonmetro"
+  ],
+  "structure": {
+    "n_strata": 4,
+    "n_psus": 8,
+    "n_people": 35,
+    "n_respondents": 26,
+    "strata": [
+      {
+        "stratum": "CERT",
+        "n_psu": 1,
+        "n_people": 3,
+        "n_respondents": 2,
+        "must_include": true,
+        "produces_replicates": false,
+        "psus": [
+          "PSU_4a1505"
+        ],
+        "psu_rows": [
+          {
+            "psu": "PSU_4a1505",
+            "n_people": 3,
+            "n_respondents": 2
+          }
+        ]
+      },
+      {
+        "stratum": "S1",
+        "n_psu": 2,
+        "n_people": 10,
+        "n_respondents": 8,
+        "must_include": false,
+        "produces_replicates": true,
+        "psus": [
+          "PSU_38da82",
+          "PSU_75350a"
+        ],
+        "psu_rows": [
+          {
+            "psu": "PSU_38da82",
+            "n_people": 5,
+            "n_respondents": 4
+          },
+          {
+            "psu": "PSU_75350a",
+            "n_people": 5,
+            "n_respondents": 4
+          }
+        ]
+      },
+      {
+        "stratum": "S2",
+        "n_psu": 3,
+        "n_people": 15,
+        "n_respondents": 11,
+        "must_include": false,
+        "produces_replicates": true,
+        "psus": [
+          "PSU_504677",
+          "PSU_c228ff",
+          "PSU_d5c010"
+        ],
+        "psu_rows": [
+          {
+            "psu": "PSU_504677",
+            "n_people": 5,
+            "n_respondents": 4
+          },
+          {
+            "psu": "PSU_c228ff",
+            "n_people": 5,
+            "n_respondents": 3
+          },
+          {
+            "psu": "PSU_d5c010",
+            "n_people": 5,
+            "n_respondents": 4
+          }
+        ]
+      },
+      {
+        "stratum": "S3",
+        "n_psu": 2,
+        "n_people": 7,
+        "n_respondents": 5,
+        "must_include": false,
+        "produces_replicates": true,
+        "psus": [
+          "PSU_66abba",
+          "PSU_c049c3"
+        ],
+        "psu_rows": [
+          {
+            "psu": "PSU_66abba",
+            "n_people": 3,
+            "n_respondents": 2
+          },
+          {
+            "psu": "PSU_c049c3",
+            "n_people": 4,
+            "n_respondents": 3
+          }
+        ]
+      }
+    ],
+    "must_include_strata": [
+      "CERT"
+    ]
+  },
+  "calibration_columns": [
+    {
+      "name": "sex",
+      "categories": [
+        "M",
+        "F"
+      ],
+      "targets": [
+        450.0,
+        550.0
+      ],
+      "total": 1000.0
+    },
+    {
+      "name": "age_band",
+      "categories": [
+        "young",
+        "mid",
+        "old"
+      ],
+      "targets": [
+        400.0,
+        350.0,
+        250.0
+      ],
+      "total": 1000.0
+    }
+  ],
+  "adjustment": {
+    "cells": [
+      {
+        "adjustment_cell": "A",
+        "n_selected": 13,
+        "n_respondents": 11,
+        "base_weight_selected": 237.0,
+        "base_weight_respondents": 206.0,
+        "multiplier": 1.1504854368932038,
+        "status": "ok"
+      },
+      {
+        "adjustment_cell": "B",
+        "n_selected": 11,
+        "n_respondents": 8,
+        "base_weight_selected": 200.0,
+        "base_weight_respondents": 145.0,
+        "multiplier": 1.3793103448275863,
+        "status": "ok"
+      },
+      {
+        "adjustment_cell": "C",
+        "n_selected": 11,
+        "n_respondents": 7,
+        "base_weight_selected": 170.0,
+        "base_weight_respondents": 101.0,
+        "multiplier": 1.683168316831683,
+        "status": "ok"
+      }
+    ],
+    "n_cells": 3
+  },
+  "calibration": {
+    "status": "ok",
+    "iterations_used": 10,
+    "n_rounds": 10,
+    "max_final_relative_error": 3.190002138985114e-11
+  },
+  "n_replicates": 7,
+  "n_replicates_failed": 0,
+  "replicate_failures": [],
+  "checks": {
+    "adjustment_cells_reproducible": true,
+    "calibration_margins_reproducible": true,
+    "point_estimates_reproducible": true,
+    "non_must_include_strata_have_2plus_psus": true,
+    "margins": {
+      "sex": {
+        "M": 450.00000001435507,
+        "F": 549.999999985645
+      },
+      "age_band": {
+        "young": 400.0000000000001,
+        "mid": 350.0,
+        "old": 250.0
+      }
+    },
+    "must_include_strata_have_no_replicates": true,
+    "replicates_are_one_per_non_must_include_psu": true,
+    "adjustment_multiplier_identity": true
+  },
+  "outputs": [
+    "estimates.csv",
+    "person_weights.csv",
+    "adjustment_cells.csv",
+    "calibration_rounds.csv",
+    "calibration_margins.csv",
+    "strata_psus.csv",
+    "replicates.csv",
+    "replicate_estimates.csv",
+    "diagnostics.json",
+    "design.copy.json",
+    "data.copy.csv"
+  ]
+}

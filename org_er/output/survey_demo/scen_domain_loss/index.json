@@ -1,0 +1,139 @@
+{
+  "batch_id": "b7d3dcff417e",
+  "run_status": "ok",
+  "data_path": "/workspace/org_er/data/survey/scenarios/domain_loss.csv",
+  "design_path": "/workspace/org_er/data/survey/scenarios/domain_loss_design.json",
+  "data_sha256": "38ee656b0ef3c23d264cdea46db45786e33f1826e0e89a25cf8ad3e6df56915c",
+  "design_sha256": "8b2048db47af4d504ee6358fdefac5bc5eb78d9f4b68cc1e0c01d31fbc7ab488",
+  "max_iterations": 100,
+  "tolerance": 1e-09,
+  "population_total": 20.0,
+  "n_people": 8,
+  "n_respondents": 7,
+  "domains": [
+    "main",
+    "solo"
+  ],
+  "structure": {
+    "n_strata": 2,
+    "n_psus": 4,
+    "n_people": 8,
+    "n_respondents": 7,
+    "strata": [
+      {
+        "stratum": "D1",
+        "n_psu": 2,
+        "n_people": 4,
+        "n_respondents": 3,
+        "must_include": false,
+        "produces_replicates": true,
+        "psus": [
+          "D1a",
+          "D1b"
+        ],
+        "psu_rows": [
+          {
+            "psu": "D1a",
+            "n_people": 2,
+            "n_respondents": 2
+          },
+          {
+            "psu": "D1b",
+            "n_people": 2,
+            "n_respondents": 1
+          }
+        ]
+      },
+      {
+        "stratum": "D2",
+        "n_psu": 2,
+        "n_people": 4,
+        "n_respondents": 4,
+        "must_include": false,
+        "produces_replicates": true,
+        "psus": [
+          "D2a",
+          "D2b"
+        ],
+        "psu_rows": [
+          {
+            "psu": "D2a",
+            "n_people": 2,
+            "n_respondents": 2
+          },
+          {
+            "psu": "D2b",
+            "n_people": 2,
+            "n_respondents": 2
+          }
+        ]
+      }
+    ],
+    "must_include_strata": []
+  },
+  "calibration_columns": [
+    {
+      "name": "grp",
+      "categories": [
+        "X",
+        "Y"
+      ],
+      "targets": [
+        10.0,
+        10.0
+      ],
+      "total": 20.0
+    }
+  ],
+  "adjustment": {
+    "cells": [
+      {
+        "adjustment_cell": "e",
+        "n_selected": 8,
+        "n_respondents": 7,
+        "base_weight_selected": 33.0,
+        "base_weight_respondents": 28.0,
+        "multiplier": 1.1785714285714286,
+        "status": "ok"
+      }
+    ],
+    "n_cells": 1
+  },
+  "calibration": {
+    "status": "ok",
+    "iterations_used": 1,
+    "n_rounds": 1,
+    "max_final_relative_error": 0.0
+  },
+  "n_replicates": 4,
+  "n_replicates_failed": 0,
+  "replicate_failures": [],
+  "checks": {
+    "adjustment_cells_reproducible": true,
+    "calibration_margins_reproducible": true,
+    "point_estimates_reproducible": true,
+    "non_must_include_strata_have_2plus_psus": true,
+    "margins": {
+      "grp": {
+        "X": 10.0,
+        "Y": 10.0
+      }
+    },
+    "must_include_strata_have_no_replicates": true,
+    "replicates_are_one_per_non_must_include_psu": true,
+    "adjustment_multiplier_identity": true
+  },
+  "outputs": [
+    "estimates.csv",
+    "person_weights.csv",
+    "adjustment_cells.csv",
+    "calibration_rounds.csv",
+    "calibration_margins.csv",
+    "strata_psus.csv",
+    "replicates.csv",
+    "replicate_estimates.csv",
+    "diagnostics.json",
+    "design.copy.json",
+    "data.copy.csv"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "must_include_strata": [],
+  "calibration": {
+    "columns": [
+      {
+        "name": "band",
+        "categories": {
+          "low": 10,
+          "high": 10
+        }
+      }
+    ]
+  },
+  "max_iterations": 50,
+  "tolerance": 1e-08
+}

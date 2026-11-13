@@ -1,0 +1,12 @@
+unit_id,stratum,psu,base_weight,response,adjustment_cell,domain,outcome,grp
+r1,L1,L1a,5,1,G1,Da,5.0,X
+r2,L1,L1a,4,1,G1,Da,6.0,X
+r3,L1,L1a,5,1,G2,Da,7.0,X
+r4,L1,L1b,4,0,G1,Da,,X
+r5,L1,L1b,5,1,G2,Da,8.0,X
+r6,L1,L1b,6,1,G2,Db,9.0,X
+r7,L2,L2a,7,1,G2,Da,10.0,Y
+r8,L2,L2a,6,1,G2,Db,11.0,X
+r9,L2,L2b,5,0,G2,Db,,Y
+r10,L2,L2b,6,1,G2,Db,12.0,X
+r11,L2,L2b,7,1,G2,Dz,13.0,X

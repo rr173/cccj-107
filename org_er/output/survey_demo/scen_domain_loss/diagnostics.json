@@ -1,0 +1,98 @@
+{
+  "run_status": "ok",
+  "structural_checks": {
+    "adjustment_cells_reproducible": true,
+    "calibration_margins_reproducible": true,
+    "point_estimates_reproducible": true,
+    "non_must_include_strata_have_2plus_psus": true,
+    "margins": {
+      "grp": {
+        "X": 10.0,
+        "Y": 10.0
+      }
+    },
+    "must_include_strata_have_no_replicates": true,
+    "replicates_are_one_per_non_must_include_psu": true,
+    "adjustment_multiplier_identity": true
+  },
+  "replicate_failures": [],
+  "estimator_status": [
+    {
+      "scope": "overall",
+      "domain": "overall",
+      "metric": "weighted_count",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "overall",
+      "domain": "overall",
+      "metric": "outcome_total",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "overall",
+      "domain": "overall",
+      "metric": "mean",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "domain",
+      "domain": "main",
+      "metric": "weighted_count",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "domain",
+      "domain": "main",
+      "metric": "outcome_total",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "domain",
+      "domain": "main",
+      "metric": "mean",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "domain",
+      "domain": "solo",
+      "metric": "weighted_count",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'D2'：复制 D2::D2b 的目标人群 solo 在删除后没有可估计的分母（估计缺失）"
+    },
+    {
+      "scope": "domain",
+      "domain": "solo",
+      "metric": "outcome_total",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'D2'：复制 D2::D2b 的目标人群 solo 在删除后没有可估计的分母（估计缺失）"
+    },
+    {
+      "scope": "domain",
+      "domain": "solo",
+      "metric": "mean",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'D2'：复制 D2::D2b 的目标人群 solo 在删除后没有可估计的分母（估计缺失）"
+    }
+  ],
+  "notes": [
+    "必入层不产生删除复制，其方差贡献不估计，绝不当作 0。",
+    "复制失败时该估计量的方差与区间留空，不拿成功复制凑方差。",
+    "domain 是分析子人群；应答调整与校准始终在全部人上进行。"
+  ]
+}

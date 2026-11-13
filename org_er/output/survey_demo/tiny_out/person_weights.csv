@@ -1,0 +1,7 @@
+line_no,unit_id,stratum,psu,adjustment_cell,domain,response,outcome,base_weight,response_adjusted_weight,calibrated_weight,grp
+2,t1,T,T1,E,da,1,10,2,2.25,2.3999999999999999,X
+3,t2,T,T1,E,da,1,20,1,1.125,1.2,X
+4,t3,T,T1,E,db,0,,1,,,Y
+5,t4,T,T1,E,db,1,30,1,1.125,1.3333333333333333,Y
+6,t5,T,T2,E,da,1,40,2,2.25,2.3999999999999999,X
+7,t6,T,T2,E,db,1,50,2,2.25,2.6666666666666665,Y

@@ -1,0 +1,7 @@
+unit_id,stratum,psu,base_weight,response,adjustment_cell,domain,outcome,group,zone
+m1,S,U1,1,1,e,all,1.0,a,p
+m2,S,U1,1,1,e,all,1.0,a,p
+m3,S,U1,1,1,e,all,1.0,b,q
+m4,S,U2,1,1,e,all,1.0,b,q
+m5,S,U2,1,1,e,all,1.0,a,p
+m6,S,U2,1,1,e,all,1.0,b,q

@@ -1,0 +1,23 @@
+{
+  "must_include_strata": [],
+  "calibration": {
+    "columns": [
+      {
+        "name": "group",
+        "categories": {
+          "a": 150,
+          "b": 50
+        }
+      },
+      {
+        "name": "zone",
+        "categories": {
+          "p": 50,
+          "q": 150
+        }
+      }
+    ]
+  },
+  "max_iterations": 100,
+  "tolerance": 1e-09
+}

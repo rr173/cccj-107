@@ -1,0 +1,5 @@
+replicate_id,stratum,psu,m_psu,n_deleted,n_people,n_respondents,status,failure_stage,failure_reason,calibration_iterations
+D1::D1a,D1,D1a,2,2,6,5,ok,,,1
+D1::D1b,D1,D1b,2,2,6,6,ok,,,1
+D2::D2a,D2,D2a,2,2,6,5,ok,,,1
+D2::D2b,D2,D2b,2,2,6,5,ok,,,1

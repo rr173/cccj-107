@@ -1,0 +1,7 @@
+unit_id,stratum,psu,base_weight,response,adjustment_cell,domain,outcome,grp
+t1,T,T1,2,1,E,da,10,X
+t2,T,T1,1,1,E,da,20,X
+t3,T,T1,1,0,E,db,,Y
+t4,T,T1,1,1,E,db,30,Y
+t5,T,T2,2,1,E,da,40,X
+t6,T,T2,2,1,E,db,50,Y

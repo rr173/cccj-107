@@ -1,0 +1,2 @@
+iteration,max_relative_error,errors_json
+1,1.7763568394002506e-16,"{""grp"": {""X"": 1.7763568394002506e-16, ""Y"": 0.0}}"

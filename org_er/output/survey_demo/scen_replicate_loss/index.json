@@ -1,0 +1,164 @@
+{
+  "batch_id": "dcd40fa2073d",
+  "run_status": "replicate_failures",
+  "data_path": "/workspace/org_er/data/survey/scenarios/replicate_loss.csv",
+  "design_path": "/workspace/org_er/data/survey/scenarios/replicate_loss_design.json",
+  "data_sha256": "d9175939456374b788cd7be10a7784922309e4908a9d42ccfc5f45d69eb9909f",
+  "design_sha256": "8b2048db47af4d504ee6358fdefac5bc5eb78d9f4b68cc1e0c01d31fbc7ab488",
+  "max_iterations": 100,
+  "tolerance": 1e-09,
+  "population_total": 20.0,
+  "n_people": 11,
+  "n_respondents": 9,
+  "domains": [
+    "Da",
+    "Db",
+    "Dz"
+  ],
+  "structure": {
+    "n_strata": 2,
+    "n_psus": 4,
+    "n_people": 11,
+    "n_respondents": 9,
+    "strata": [
+      {
+        "stratum": "L1",
+        "n_psu": 2,
+        "n_people": 6,
+        "n_respondents": 5,
+        "must_include": false,
+        "produces_replicates": true,
+        "psus": [
+          "L1a",
+          "L1b"
+        ],
+        "psu_rows": [
+          {
+            "psu": "L1a",
+            "n_people": 3,
+            "n_respondents": 3
+          },
+          {
+            "psu": "L1b",
+            "n_people": 3,
+            "n_respondents": 2
+          }
+        ]
+      },
+      {
+        "stratum": "L2",
+        "n_psu": 2,
+        "n_people": 5,
+        "n_respondents": 4,
+        "must_include": false,
+        "produces_replicates": true,
+        "psus": [
+          "L2a",
+          "L2b"
+        ],
+        "psu_rows": [
+          {
+            "psu": "L2a",
+            "n_people": 2,
+            "n_respondents": 2
+          },
+          {
+            "psu": "L2b",
+            "n_people": 3,
+            "n_respondents": 2
+          }
+        ]
+      }
+    ],
+    "must_include_strata": []
+  },
+  "calibration_columns": [
+    {
+      "name": "grp",
+      "categories": [
+        "X",
+        "Y"
+      ],
+      "targets": [
+        10.0,
+        10.0
+      ],
+      "total": 20.0
+    }
+  ],
+  "adjustment": {
+    "cells": [
+      {
+        "adjustment_cell": "G1",
+        "n_selected": 3,
+        "n_respondents": 2,
+        "base_weight_selected": 13.0,
+        "base_weight_respondents": 9.0,
+        "multiplier": 1.4444444444444444,
+        "status": "ok"
+      },
+      {
+        "adjustment_cell": "G2",
+        "n_selected": 8,
+        "n_respondents": 7,
+        "base_weight_selected": 47.0,
+        "base_weight_respondents": 42.0,
+        "multiplier": 1.119047619047619,
+        "status": "ok"
+      }
+    ],
+    "n_cells": 2
+  },
+  "calibration": {
+    "status": "ok",
+    "iterations_used": 1,
+    "n_rounds": 1,
+    "max_final_relative_error": 1.7763568394002506e-16
+  },
+  "n_replicates": 4,
+  "n_replicates_failed": 2,
+  "replicate_failures": [
+    {
+      "replicate_id": "L1::L1a",
+      "stratum": "L1",
+      "psu": "L1a",
+      "stage": "adjustment",
+      "reason": "应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格"
+    },
+    {
+      "replicate_id": "L2::L2a",
+      "stratum": "L2",
+      "psu": "L2a",
+      "stage": "calibration",
+      "reason": "[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    }
+  ],
+  "checks": {
+    "adjustment_cells_reproducible": true,
+    "calibration_margins_reproducible": true,
+    "point_estimates_reproducible": true,
+    "non_must_include_strata_have_2plus_psus": true,
+    "margins": {
+      "grp": {
+        "X": 10.000000000000002,
+        "Y": 10.0
+      }
+    },
+    "must_include_strata_have_no_replicates": true,
+    "replicates_are_one_per_non_must_include_psu": true,
+    "adjustment_multiplier_identity": true
+  },
+  "outputs": [
+    "estimates.csv",
+    "person_weights.csv",
+    "adjustment_cells.csv",
+    "calibration_rounds.csv",
+    "calibration_margins.csv",
+    "strata_psus.csv",
+    "replicates.csv",
+    "replicate_estimates.csv",
+    "diagnostics.json",
+    "design.copy.json",
+    "data.copy.csv"
+  ]
+}

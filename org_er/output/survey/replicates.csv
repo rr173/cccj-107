@@ -1,0 +1,8 @@
+replicate_id,stratum,psu,m_psu,n_deleted,n_people,n_respondents,status,failure_stage,failure_reason,calibration_iterations
+S1::P01,S1,P01,2,5,30,22,ok,,,10
+S1::P02,S1,P02,2,5,30,22,ok,,,12
+S2::P03,S2,P03,3,5,30,22,ok,,,14
+S2::P04,S2,P04,3,5,30,22,ok,,,7
+S2::P05,S2,P05,3,5,30,23,ok,,,11
+S3::P06,S3,P06,2,4,31,23,ok,,,14
+S3::P07,S3,P07,2,3,32,24,ok,,,8

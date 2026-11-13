@@ -460,6 +460,119 @@ ppm 闭区间边界、同质量多峰、非等距时间、穿背景交点、长�
 输出与参考实现。
 
 
+## 复杂抽样问卷估计（org_er.survey）：抽样设计 + 应答调整 + 边际校准 + 删一 PSU jackknife
+
+面向“表里有未应答者、直接删行再平均会失真”的调查数据：从抽样设计、应答调整、
+总体边际校准到方差估计走一条**固定、可追溯**的分析链，而不是单一加权平均函数。
+只依赖标准库。
+
+```bash
+python3 scripts/make_survey_sample.py           # 生成小样本与失败场景（data/survey/）
+python3 scripts/survey.py --data data/survey/survey.csv \
+                          --design data/survey/design.json \
+                          --out output/survey
+python3 scripts/survey.py --show output/survey   # 读回估计表与诊断
+python3 scripts/run_survey_demo.py               # 端到端演示（111 项检查全过）
+python3 scripts/run_survey_reference_check.py output/survey
+                                                 # 独立标量参考交叉核对（不 import 生产代码）
+```
+
+### 输入
+
+数据 CSV 每行一名**被抽中**的人（含未应答者），列：
+
+```
+unit_id, stratum, psu, base_weight, response, adjustment_cell, domain, outcome
+```
+
+外加设计 JSON 中列出的若干**校准分类列**（如 `sex`、`age_band`）。
+
+- `unit_id` 非空且唯一；`stratum` 抽样层、`psu` 层内共同抽取的初级单位、
+  `adjustment_cell` 应答调整格、`domain` 分析子人群，均不得为空；
+- `base_weight` 正有限数；`response` 只接受 0/1；`response=0` 不提供 outcome
+  （可空），`response=1` 的 outcome 必须有限；
+- **坏行整批失败并指出原行号**（身份重复同时给出首次出现行、设计列空、非法权重、
+  response/outcome 不一致、缺校准列），绝不悄悄丢弃或补一个默认值。
+
+设计 JSON：
+
+```json
+{"must_include_strata": ["CERT"],
+ "calibration": {"columns": [
+   {"name": "sex",      "categories": {"M": 450, "F": 550}},
+   {"name": "age_band", "categories": {"young": 400, "mid": 350, "old": 250}}]},
+ "max_iterations": 200, "tolerance": 1e-10}
+```
+
+- `must_include_strata` 是必入层（含单 PSU 必入层）；**未声明的单 PSU 层是设计非法**，
+  不能把单 PSU 层的方差默认为 0；其余层至少 2 个 PSU；
+- 校准列按配置顺序参与 IPF；每个类别显式给出已知总体人数；**各列人数之和必须一致**；
+- `max_iterations` / `tolerance` 可配置，也可用 `--max-iterations` / `--tolerance` 覆盖。
+
+### 权重链（全部人上执行，不先筛 domain）
+
+1. **应答调整**：对每个 `adjustment_cell`，被抽中者（含未应答）基础权重和 ÷
+   应答者基础权重和 = 该格应答者的调整倍数。某格没有应答者 -> 停止并解释，
+   **禁止偷偷合并调整格**。
+2. **边际校准（IPF）**：只在应答者上、按设计列顺序轮流缩放，每轮记录最大相对误差，
+   直到所有边际相对误差 < 容差。权重保持为正。以下都**不得标成校准成功**：
+   已知正控制格无样本支持、目标为 0 的格却有权重、零分母、边际互相矛盾（不收敛）、
+   超过迭代上限。
+3. **点估计**：`domain` 是分析子人群，**不是另一次抽样**——应答调整与校准始终在
+   全部人上进行，再按 domain 取子集。均值的分母是该人群最终权重和；无应答者的
+   子人群给出缺失估计与原因。
+
+产物里每人都有**基础 / 应答调整后 / 校准后**三列权重，点估计可由这些权重重算。
+
+### 方差（分层删一 PSU jackknife，每次复制重做整条链）
+
+对一个**非必入层** h（m 个 PSU）的每个 PSU r：删去该 PSU 的所有人，同层其他 PSU
+的基础权重乘 `m/(m-1)`，其他层不变；然后**从复制后的基础权重重新做应答调整与
+边际校准**，再算估计。必入层不产生删除复制。
+
+```
+Var(θ) = Σ_h (m_h - 1)/m_h × Σ_{r∈h} (θ_r − θ_full)²
+区间    = θ ± 1.96 × sqrt(Var)
+```
+
+禁止直接对全样本最终权重乘删除系数（演示中两种做法差到 0.2178，见 §4）。
+
+复制中校准失败、调整格消失、目标人群分母变 0 时，记录**哪层哪 PSU 在哪个环节
+失效**，该估计量的方差与区间留空，**不拿成功复制凑方差**；已完成的点估计与复制
+诊断照常保留。没有非必入层可删时，方差同样留空（不把必入层方差当作 0）。
+
+### 产物（`<out>/` 一次发布）
+
+| 文件 | 内容 |
+|---|---|
+| `estimates.csv` | 全体/每个 domain 的加权人数、outcome 总量、均值 + 方差、SE、95% 区间、有效状态与原因 |
+| `person_weights.csv` | 逐人基础 / 应答调整后 / 校准后权重（可重算点估计） |
+| `adjustment_cells.csv` | 每格人数、权重和、倍数与状态 |
+| `calibration_rounds.csv` / `calibration_margins.csv` | 每轮最大相对误差与逐类别误差；最终权重和 vs 控制量 |
+| `strata_psus.csv` | 层 / PSU 清单、必入标记、是否产生复制 |
+| `replicates.csv` / `replicate_estimates.csv` | 每次删除复制的状态/失败环节与全体/各 domain 估计 |
+| `diagnostics.json` | 结构性诊断、复制失败明细、每个估计量的有效状态 |
+| `index.json` | 输入路径与 sha256、结构摘要、校准摘要、可复核自检结果 |
+| `design.copy.json` / `data.copy.csv` | 输入快照（数据只读复制，**不覆盖输入**） |
+
+全样本链路失败时不发布到 `<out>`，写 `<out>.failed-<批次>/`（失败诊断 + 输入快照），
+上一次成功结果原样保留。数据/设计非法退出码 2；全样本链路失败退出码 3；
+有复制失败但点估计可算时退出码 0 并醒目标记。
+
+### 人工夹具与核验
+
+`data/survey/` 的主夹具故意让**同一 PSU 内的人相似**（outcome 以 PSU 中心值为主）、
+**应答率随调整格变化**（11/13、8/11、7/11）、**校准分布与样本不同**（样本男性应答者
+15/26，设计要求 M=450/F=550），含必入层 CERT 与无应答者子人群 `island`。
+
+- `run_survey_reference_check.py` 不 import 任何生产模块，用标量循环独立实现整条
+  权重链与每次复制，逐人核对权重、全体/子人群点估计、每个复制的估计与方差；
+- `tiny.csv` 只有 6 人、1 层 2 PSU、单校准列，最终权重是精确分数（倍数 9/8、
+  校准 16/15、删除 32/27），演示用 `Fraction` 精确手算核对全部权重、点估计、
+  每次删除后的估计和方差；
+- 演示还覆盖交换输入行序、重命名 PSU（估计与逐人权重不变）、失败场景各自保留
+  什么/不能算什么、坏数据逐行定位、输入文件未被改写。
+
 ## 演示场景（run_demo.py，19 项断言全过）
 
 1. **S1 跨来源同机构合并**：GB（强边+弱边双证据，强边优先）、CN（全角注册号经 NFKC 规范化后相同）、DE；
@@ -501,6 +614,7 @@ org_er/contrib/         署名贡献核算子包：normalize / parse / dedup / a
 org_er/volprep/         体数据整备子包：geometry / resample / manifest / job / reference / selfcheck
 org_er/rnaseq/          RNA-seq 片段计数子包：annotation / intervaltree / cigar / counting / outputs
 org_er/lcms/            LC-MS 提取子包：cv / mzml / targets / extract / integral / job / errors
+org_er/survey/         复杂抽样问卷估计子包：design / data / weights / jackknife / job / errors
 scripts/                入口：make_sample_data / build / revise / verify / run_demo
                         + make_contrib_sample / contrib / run_contrib_demo / run_contrib_regression（核算作业）
                         + volprep / run_volprep_demo（体数据整备）
@@ -508,12 +622,16 @@ scripts/                入口：make_sample_data / build / revise / verify / ru
                           / run_rnaseq_sparse_check（RNA-seq 计数）
                         + lcms / make_lcms_sample / run_lcms_demo / run_lcms_reference_check
                           / run_lcms_memory_check（LC-MS 提取）
+                        + survey / make_survey_sample / run_survey_demo / run_survey_reference_check
+                          （复杂抽样问卷估计）
 requirements-volprep.txt 体数据整备依赖（numpy、nibabel）
 requirements-rnaseq.txt RNA-seq 计数依赖（pysam）
 requirements-lcms.txt   LC-MS 提取依赖（numpy）
 data/                   生成的样本与修订事件、论文目录样本 papers.jsonl、
                         旧版 HUGEINT 账目固定样本 legacy_contrib_hugeint.duckdb、
-                        RNA-seq 人工夹具 data/rnaseq/（GTF/SAM/BAM/样本表/故障夹具）
+                        RNA-seq 人工夹具 data/rnaseq/（GTF/SAM/BAM/样本表/故障夹具）、
+                        调查夹具 data/survey/（主夹具/精确手算夹具/失败场景/坏数据）
 output/                 DuckDB 库与导出的交付表（含 output/contrib/ 核算交付表、
-                        output/volprep/ 整备产物、output/rnaseq/ 计数矩阵与逐片段判定）
+                        output/volprep/ 整备产物、output/rnaseq/ 计数矩阵与逐片段判定、
+                        output/survey/ 问卷估计表与逐人权重）
 ```

@@ -1,0 +1,45 @@
+{
+  "batch_id": "538e4109ada0",
+  "run_status": "failed",
+  "stage": "adjustment",
+  "reason": "应答调整失败：adjustment_cell 'dead' 没有应答者；禁止偷偷合并调整格或跳过该格",
+  "data_path": "/workspace/org_er/data/survey/scenarios/no_response_cell.csv",
+  "design_path": "/workspace/org_er/data/survey/scenarios/no_response_cell_design.json",
+  "data_sha256": "d72a7a69458d74335fae55f9ab84e8ce32c2735c6d449daa39e9372223e48b8a",
+  "design_sha256": "16bfdb305c849d15e25f26c37ef6ecf1c8a71dca07776444483a83806ec26d02",
+  "n_people": 6,
+  "structure": {
+    "n_strata": 1,
+    "n_psus": 2,
+    "n_people": 6,
+    "n_respondents": 4,
+    "strata": [
+      {
+        "stratum": "S",
+        "n_psu": 2,
+        "n_people": 6,
+        "n_respondents": 4,
+        "must_include": false,
+        "produces_replicates": true,
+        "psus": [
+          "Q1",
+          "Q2"
+        ],
+        "psu_rows": [
+          {
+            "psu": "Q1",
+            "n_people": 3,
+            "n_respondents": 2
+          },
+          {
+            "psu": "Q2",
+            "n_people": 3,
+            "n_respondents": 2
+          }
+        ]
+      }
+    ],
+    "must_include_strata": []
+  },
+  "note": "全样本权重链未完成：没有发布点估计或方差；上一次成功结果目录保持不变。此目录只含失败诊断与输入快照。"
+}

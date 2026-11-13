@@ -1,0 +1,3 @@
+column,category,target,weight_sum,absolute_error,relative_error,status
+grp,X,10,10,0,0,ok
+grp,Y,10,10,0,0,ok

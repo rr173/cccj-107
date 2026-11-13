@@ -1,0 +1,49 @@
+replicate_id,stratum,psu,status,scope,domain,metric,estimate,note
+L1::L1a,L1,L1a,failed,overall,overall,weighted_count,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,overall,overall,outcome_total,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,overall,overall,mean,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,domain,Da,weighted_count,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,domain,Da,outcome_total,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,domain,Da,mean,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,domain,Db,weighted_count,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,domain,Db,outcome_total,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,domain,Db,mean,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,domain,Dz,weighted_count,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,domain,Dz,outcome_total,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1a,L1,L1a,failed,domain,Dz,mean,,adjustment: 应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格
+L1::L1b,L1,L1b,ok,overall,overall,weighted_count,20,
+L1::L1b,L1,L1b,ok,overall,overall,outcome_total,185.93903102885139,
+L1::L1b,L1,L1b,ok,overall,overall,mean,9.2969515514425698,
+L1::L1b,L1,L1b,ok,domain,Da,weighted_count,15.759390310288515,
+L1::L1b,L1,L1b,ok,domain,Da,outcome_total,134.82852476864454,
+L1::L1b,L1,L1b,ok,domain,Da,mean,8.5554404145077729,
+L1::L1b,L1,L1b,ok,domain,Db,weighted_count,2.6782798040283069,
+L1::L1b,L1,L1b,ok,domain,Db,outcome_total,30.800217746325529,
+L1::L1b,L1,L1b,ok,domain,Db,mean,11.5,
+L1::L1b,L1,L1b,ok,domain,Dz,weighted_count,1.5623298856831789,
+L1::L1b,L1,L1b,ok,domain,Dz,outcome_total,20.310288513881325,
+L1::L1b,L1,L1b,ok,domain,Dz,mean,13,
+L2::L2a,L2,L2a,failed,overall,overall,weighted_count,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,overall,overall,outcome_total,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,overall,overall,mean,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,domain,Da,weighted_count,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,domain,Da,outcome_total,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,domain,Da,mean,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,domain,Db,weighted_count,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,domain,Db,outcome_total,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,domain,Db,mean,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,domain,Dz,weighted_count,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,domain,Dz,outcome_total,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2a,L2,L2a,failed,domain,Dz,mean,,calibration: [unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0
+L2::L2b,L2,L2b,ok,overall,overall,weighted_count,20,
+L2::L2b,L2,L2b,ok,overall,overall,outcome_total,180.92140921409214,
+L2::L2b,L2,L2b,ok,overall,overall,mean,9.0460704607046072,
+L2::L2b,L2,L2b,ok,domain,Da,weighted_count,15.609756097560975,
+L2::L2b,L2,L2b,ok,domain,Da,outcome_total,135.55555555555554,
+L2::L2b,L2,L2b,ok,domain,Da,mean,8.6840277777777768,
+L2::L2b,L2,L2b,ok,domain,Db,weighted_count,4.3902439024390247,
+L2::L2b,L2,L2b,ok,domain,Db,outcome_total,45.365853658536587,
+L2::L2b,L2,L2b,ok,domain,Db,mean,10.333333333333332,
+L2::L2b,L2,L2b,ok,domain,Dz,weighted_count,,复制中该子人群没有可用分母（估计缺失）
+L2::L2b,L2,L2b,ok,domain,Dz,outcome_total,,复制中该子人群没有可用分母（估计缺失）
+L2::L2b,L2,L2b,ok,domain,Dz,mean,,复制中该子人群没有可用分母（估计缺失）

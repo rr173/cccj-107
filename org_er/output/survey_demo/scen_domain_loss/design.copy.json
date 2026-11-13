@@ -1,0 +1,16 @@
+{
+  "must_include_strata": [],
+  "calibration": {
+    "columns": [
+      {
+        "name": "grp",
+        "categories": {
+          "X": 10,
+          "Y": 10
+        }
+      }
+    ]
+  },
+  "max_iterations": 100,
+  "tolerance": 1e-09
+}

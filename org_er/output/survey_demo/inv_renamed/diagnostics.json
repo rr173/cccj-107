@@ -1,0 +1,127 @@
+{
+  "run_status": "ok",
+  "structural_checks": {
+    "adjustment_cells_reproducible": true,
+    "calibration_margins_reproducible": true,
+    "point_estimates_reproducible": true,
+    "non_must_include_strata_have_2plus_psus": true,
+    "margins": {
+      "sex": {
+        "M": 450.00000001435507,
+        "F": 549.999999985645
+      },
+      "age_band": {
+        "young": 400.0000000000001,
+        "mid": 350.0,
+        "old": 250.0
+      }
+    },
+    "must_include_strata_have_no_replicates": true,
+    "replicates_are_one_per_non_must_include_psu": true,
+    "adjustment_multiplier_identity": true
+  },
+  "replicate_failures": [],
+  "estimator_status": [
+    {
+      "scope": "overall",
+      "domain": "overall",
+      "metric": "weighted_count",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "overall",
+      "domain": "overall",
+      "metric": "outcome_total",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "overall",
+      "domain": "overall",
+      "metric": "mean",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "domain",
+      "domain": "island",
+      "metric": "weighted_count",
+      "estimate_status": "missing",
+      "variance_status": "unavailable",
+      "variance_reason": "点估计缺失，无法计算方差与区间"
+    },
+    {
+      "scope": "domain",
+      "domain": "island",
+      "metric": "outcome_total",
+      "estimate_status": "missing",
+      "variance_status": "unavailable",
+      "variance_reason": "点估计缺失，无法计算方差与区间"
+    },
+    {
+      "scope": "domain",
+      "domain": "island",
+      "metric": "mean",
+      "estimate_status": "missing",
+      "variance_status": "unavailable",
+      "variance_reason": "点估计缺失，无法计算方差与区间"
+    },
+    {
+      "scope": "domain",
+      "domain": "metro",
+      "metric": "weighted_count",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "domain",
+      "domain": "metro",
+      "metric": "outcome_total",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "domain",
+      "domain": "metro",
+      "metric": "mean",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "domain",
+      "domain": "nonmetro",
+      "metric": "weighted_count",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "domain",
+      "domain": "nonmetro",
+      "metric": "outcome_total",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    },
+    {
+      "scope": "domain",
+      "domain": "nonmetro",
+      "metric": "mean",
+      "estimate_status": "ok",
+      "variance_status": "ok",
+      "variance_reason": ""
+    }
+  ],
+  "notes": [
+    "必入层不产生删除复制，其方差贡献不估计，绝不当作 0。",
+    "复制失败时该估计量的方差与区间留空，不拿成功复制凑方差。",
+    "domain 是分析子人群；应答调整与校准始终在全部人上进行。"
+  ]
+}

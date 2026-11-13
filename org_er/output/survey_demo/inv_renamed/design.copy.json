@@ -1,0 +1,26 @@
+{
+  "must_include_strata": [
+    "CERT"
+  ],
+  "calibration": {
+    "columns": [
+      {
+        "name": "sex",
+        "categories": {
+          "M": 450,
+          "F": 550
+        }
+      },
+      {
+        "name": "age_band",
+        "categories": {
+          "young": 400,
+          "mid": 350,
+          "old": 250
+        }
+      }
+    ]
+  },
+  "max_iterations": 200,
+  "tolerance": 1e-10
+}

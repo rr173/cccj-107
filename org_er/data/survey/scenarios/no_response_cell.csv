@@ -1,0 +1,7 @@
+unit_id,stratum,psu,base_weight,response,adjustment_cell,domain,outcome,band
+n1,S,Q1,4,1,live,all,5.0,low
+n2,S,Q1,4,1,live,all,6.0,low
+n3,S,Q1,3,0,dead,all,,low
+n4,S,Q2,5,1,live,all,7.0,high
+n5,S,Q2,5,0,dead,all,,high
+n6,S,Q2,6,1,live,all,8.0,high

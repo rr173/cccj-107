@@ -1,0 +1,137 @@
+{
+  "run_status": "replicate_failures",
+  "structural_checks": {
+    "adjustment_cells_reproducible": true,
+    "calibration_margins_reproducible": true,
+    "point_estimates_reproducible": true,
+    "non_must_include_strata_have_2plus_psus": true,
+    "margins": {
+      "grp": {
+        "X": 10.000000000000002,
+        "Y": 10.0
+      }
+    },
+    "must_include_strata_have_no_replicates": true,
+    "replicates_are_one_per_non_must_include_psu": true,
+    "adjustment_multiplier_identity": true
+  },
+  "replicate_failures": [
+    {
+      "replicate_id": "L1::L1a",
+      "stratum": "L1",
+      "psu": "L1a",
+      "stage": "adjustment",
+      "reason": "应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格"
+    },
+    {
+      "replicate_id": "L2::L2a",
+      "stratum": "L2",
+      "psu": "L2a",
+      "stage": "calibration",
+      "reason": "[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    }
+  ],
+  "estimator_status": [
+    {
+      "scope": "overall",
+      "domain": "overall",
+      "metric": "weighted_count",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "overall",
+      "domain": "overall",
+      "metric": "outcome_total",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "overall",
+      "domain": "overall",
+      "metric": "mean",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "domain",
+      "domain": "Da",
+      "metric": "weighted_count",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "domain",
+      "domain": "Da",
+      "metric": "outcome_total",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "domain",
+      "domain": "Da",
+      "metric": "mean",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "domain",
+      "domain": "Db",
+      "metric": "weighted_count",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "domain",
+      "domain": "Db",
+      "metric": "outcome_total",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "domain",
+      "domain": "Db",
+      "metric": "mean",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "domain",
+      "domain": "Dz",
+      "metric": "weighted_count",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "domain",
+      "domain": "Dz",
+      "metric": "outcome_total",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    },
+    {
+      "scope": "domain",
+      "domain": "Dz",
+      "metric": "mean",
+      "estimate_status": "ok",
+      "variance_status": "unavailable",
+      "variance_reason": "部分复制失败/估计缺失，方差与区间留空（不拿成功复制凑数）：层 'L1'：复制 L1::L1a 在 adjustment 环节失效：应答调整失败：adjustment_cell 'G1' 没有应答者；禁止偷偷合并调整格或跳过该格；层 'L2'：复制 L2::L2a 在 calibration 环节失效：[unsupported_control] 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'grp' 类别 'Y' 已知人数 10，但应答样本权重和为 0"
+    }
+  ],
+  "notes": [
+    "必入层不产生删除复制，其方差贡献不估计，绝不当作 0。",
+    "复制失败时该估计量的方差与区间留空，不拿成功复制凑方差。",
+    "domain 是分析子人群；应答调整与校准始终在全部人上进行。"
+  ]
+}

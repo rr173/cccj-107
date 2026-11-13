@@ -1,0 +1,9 @@
+{
+  "batch_id": "32910d4aa97b",
+  "run_status": "failed",
+  "stage": "calibration",
+  "reason": "全样本边际校准失败 [max_iterations]: 超过迭代上限 100 轮仍未收敛（最大相对误差 2.000e+00 >= 容差 1.000e-09）；不同边际可能互相矛盾",
+  "data_sha256": "a7f77f7b270cbd6d19a8ba23a91d6d2ff2494908ba6483b9c73b93c13f8caf39",
+  "design_sha256": "98e26a149dc6a76ee47a5dd28dcaf79b83deb3aa78a2155f86f38b8568764554",
+  "n_people": 6
+}
