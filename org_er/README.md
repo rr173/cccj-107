@@ -82,6 +82,98 @@ python3 scripts/verify.py                      # 全部核验
 python3 scripts/run_demo.py                    # 端到端演示（自建独立库，含全部场景与核验）
 ```
 
+## 体数据整备（org_er.volprep）：NIfTI 批次 -> 指定分析网格
+
+离线、只做**已有坐标间的重采样**（不估计配准变换）：把一批 `.nii/.nii.gz`
+逐项映射到同一个目标三维网格，产出可直接读取的浮点/标签数组、有效掩码与几何元数据。
+
+```bash
+python3 -m pip install --user -r requirements-volprep.txt   # numpy + nibabel
+python3 scripts/make_volprep_sample.py                       # 生成 data/volprep 小样本（可跳过）
+python3 scripts/volprep.py --manifest data/volprep/batch.json \
+                          --target   data/volprep/target.json \
+                          --out      output/volprep \
+                          [--chunk-voxels 65536] [--show <产物元数据路径>]
+python3 scripts/run_volprep_demo.py      # 端到端演示（44 项断言全过）
+python3 -m org_er.volprep.selfcheck      # 作业层自检（坏项/原子发布）
+python3 -m org_er.volprep.reference_check  # 小数组逐点标量参考交叉核对
+```
+
+`data/volprep/` 带一个 3 项小样本（强度 `.nii.gz`、标签 `.nii`、4D 强度 `.nii`）与
+目标网格 JSON，可直接跑上述命令；`output/volprep/` 是它的产物（可只读回）。
+
+### 清单与目标网格
+
+清单（`--manifest`）逐项给出相对清单目录的文件名、唯一 `sample_key` 与
+`kind`（`intensity` / `label`）；同一样本可同时有强度与标签两项。四维文件按
+第四维原序逐帧产出（帧号 0 起），第四维不当空间轴；只接受三维/四维，其余拒绝。
+
+```json
+{"batch_id": "demo",
+ "items": [{"path": "raw/sub-01_T1.nii.gz", "sample_key": "sub-01", "kind": "intensity"},
+           {"path": "raw/sub-01_seg.nii",   "sample_key": "sub-01", "kind": "label"}]}
+```
+
+目标网格（`--target`，JSON）给出三维 `shape` 与 4×4 `affine`；**体素整数下标指中心**，
+世界坐标单位为毫米：
+
+```json
+{"shape": [16, 14, 12],
+ "affine": [[1.5, 0, 0, -6], [0, 1.5, 0, -5], [0, 0, 1.5, -4], [0, 0, 0, 1]]}
+```
+
+### 几何选择与单位（拒绝即诊断，绝不默认单位矩阵）
+
+- 优先**有效 sform**（`sform_code>0` 且矩阵有效），否则**有效 qform**；
+  两者皆无、含非有限值、3×3 不可逆或末行非 `[0,0,0,1]` -> 拒绝该输入；
+- 空间单位：`mm` 原样、`meter`×1000、`micron`×0.001，`unknown`/其它单位拒绝；
+- 元数据记录**实际采用的几何**（sform/qform）、文件原值、单位系数、
+  **归一化后的毫米矩阵**、轴方向描述与（若有）被拒 form 的原因。
+
+### 重采样规则
+
+目标体素中心 `i,j,k` -> 世界 `w = T @ [i,j,k,1]` -> 源连续下标 `s = inv(S) @ w`。
+
+- **强度**：三线性；源值先应用头 `scl_slope/scl_inter`（`slope` 缺失/0/非有限 =
+  无缩放）。中心落在闭区间 `[0,n-1]` 外 -> 无效（输出 NaN，掩码 0）；恰好边界上的
+  退化维度不要求不存在的邻居；仅**非零权重**邻点参与，参与邻点含 NaN/Inf 时整点
+  无效（不把缺失当 0、不重新归一化剩余权重）。
+- **标签**：最近中心；恰好半格取较小下标；不线性插出新类别。未缩放标签须为非负
+  整数且缩放恒等，否则拒绝。无效位置输出 0，与真实类别 0 用掩码区分。
+- 允许负轴向、旋转、斜切、轴交换；**按 affine 映射**，不是按 voxel size 拉伸数组
+  （演示用“只按 voxel size 拉伸”的对照，误差 9.04 vs 3.8e-6）。
+- **按目标切块**（`--chunk-voxels` 控制每块目标体素上限，默认 65536）：只为一块目标
+  体素生成坐标再插值，除源数组外不构造整卷/四维坐标云。
+
+### 产物与读回（不需要原文件）
+
+```
+<out>/index.json               批次索引（目标几何、逐项/逐帧、诊断）
+<out>/diagnostics.json         全部坏项及其原因（不冒充已完成样本）
+<out>/manifest.copy.json       本批使用的清单快照
+<out>/products/<stem>.npy      强度 float32 / 标签 int32
+<out>/products/<stem>.mask.npy uint8 掩码（1 有效 / 0 无效）
+<out>/products/<stem>.json     样本键、帧号、源几何（实际采用 + 归一化矩阵）、缩放、目标几何
+```
+
+```python
+from org_er.volprep.job import read_batch, read_sample
+idx = read_batch("output/volprep")                     # 不打开任何 NIfTI
+for frame, arr, mask, meta in read_sample("output/volprep", "sub-01", "intensity"):
+    ...                                                # 4D 逐帧、原序
+```
+
+元数据记录数组/掩码的相对文件名与 sha256，整目录可搬迁；读回会校验形状、掩码、
+NaN 约定与内容摘要。批次产物先写暂存目录，整批成功后才换入目标目录；失败或中断时
+上一次成功结果保持原样。
+
+### 坏项与独立性
+
+清单坏行（缺 `sample_key`、非法 `kind`、不安全键、重复的 `sample_key+kind`、非对象
+条目）和读取/几何坏项逐条进入 `diagnostics`，不产生产物；同批正常项照常完成。
+本管线只读输入文件，不改动机构库与贡献作业的任何产物，原有命令
+（`scripts/build.py`、`verify.py`、`contrib.py` 等）继续可用。
+
 ## 论文署名贡献核算作业（org_er.contrib）
 
 在既有归并结果之上核算论文目录的署名贡献，供研究管理人员核对年度产出。
@@ -246,9 +338,12 @@ Python 大整数中按明细重建（覆盖超过 int128 的分数）。
 config/er_config.json   全部规则配置（含样例）
 org_er/                 管线包：normalize / rules / entity / pipeline / store / revisions / reference / verifylib
 org_er/contrib/         署名贡献核算子包：normalize / parse / dedup / account / store / verify / job
+org_er/volprep/         体数据整备子包：geometry / resample / manifest / job / reference / selfcheck
 scripts/                入口：make_sample_data / build / revise / verify / run_demo
                         + make_contrib_sample / contrib / run_contrib_demo / run_contrib_regression（核算作业）
+                        + volprep / run_volprep_demo（体数据整备）
+requirements-volprep.txt 体数据整备依赖（numpy、nibabel）
 data/                   生成的样本与修订事件、论文目录样本 papers.jsonl、
                         旧版 HUGEINT 账目固定样本 legacy_contrib_hugeint.duckdb
-output/                 DuckDB 库与导出的交付表（含 output/contrib/ 核算交付表）
+output/                 DuckDB 库与导出的交付表（含 output/contrib/ 核算交付表、output/volprep/ 整备产物）
 ```

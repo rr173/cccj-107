@@ -1,0 +1,92 @@
+{
+  "batch_id": "cli",
+  "manifest_path_name": "batch.json",
+  "target": {
+    "shape": [
+      16,
+      14,
+      12
+    ],
+    "affine": [
+      [
+        1.5,
+        0.0,
+        0.0,
+        -6.0
+      ],
+      [
+        0.0,
+        1.5,
+        0.0,
+        -5.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.5,
+        -4.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "spatial_unit": "mm",
+    "index_convention": "integer_voxel_index_is_center",
+    "world_unit": "mm"
+  },
+  "target_json_sha256": "aee33708dce3a19325faafa230d6897056cb9fa3da851fe9bea52b12310e2ae2",
+  "target_json_bytes_sha256": "aee33708dce3a19325faafa230d6897056cb9fa3da851fe9bea52b12310e2ae2",
+  "chunk_voxels": 65536,
+  "n_items_listed": 1,
+  "n_items_attempted": 1,
+  "n_completed": 1,
+  "n_diagnostics": 0,
+  "mask_meaning": "mask=1 -> 有效位置；mask=0 -> 无效位置。强度无效位置为 NaN；标签无效位置为 0，必须用掩码与真实类别 0 区分",
+  "products_dir": "products",
+  "samples": [
+    {
+      "item_index": 0,
+      "path": "../raw_offline/s1_axis.nii.gz",
+      "sample_key": "cli_axis",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "93b58c1b20e20209de8adbedf093ee00ec5dbbd76c08dcee72e8293c88dc1128",
+      "source_shape": [
+        16,
+        14,
+        13
+      ],
+      "n_frames": 1,
+      "geometry_source": "sform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0000__cli_axis__intensity__f000",
+          "array_file": "i0000__cli_axis__intensity__f000.npy",
+          "mask_file": "i0000__cli_axis__intensity__f000.mask.npy",
+          "meta_file": "i0000__cli_axis__intensity__f000.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0000__cli_axis__intensity__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 65536,
+      "chunk_shape": [
+        16,
+        14,
+        12
+      ]
+    }
+  ],
+  "diagnostics": []
+}

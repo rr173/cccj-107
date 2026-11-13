@@ -1,0 +1,10 @@
+{
+  "batch_id": "cli",
+  "items": [
+    {
+      "path": "../raw_offline/s1_axis.nii.gz",
+      "sample_key": "cli_axis",
+      "kind": "intensity"
+    }
+  ]
+}

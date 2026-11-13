@@ -1,0 +1,135 @@
+{
+  "batch_id": "bad",
+  "diagnostics": [
+    {
+      "item": 11,
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": null,
+      "reason": "缺少 sample_key"
+    },
+    {
+      "item": 12,
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": "bad_kind",
+      "reason": "kind 须为 intensity/label，实际 'mask'"
+    },
+    {
+      "item": 13,
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": "bad key/with space",
+      "reason": "sample_key 含不安全字符（仅允许字母数字 . _ -）: 'bad key/with space'"
+    },
+    {
+      "item": 15,
+      "reason": "条目须为 JSON 对象: 'not-an-object'"
+    },
+    {
+      "item": 0,
+      "path": "raw/s3_unknown_units.nii",
+      "sample_key": "bad_units",
+      "kind": "intensity",
+      "status": "rejected",
+      "stage": "geometry",
+      "reason": "空间单位为 unknown（未知单位），无法确定毫米尺度，拒绝"
+    },
+    {
+      "item": 1,
+      "path": "raw/s3_both_codes_zero.nii",
+      "sample_key": "bad_codes",
+      "kind": "intensity",
+      "status": "rejected",
+      "stage": "geometry",
+      "reason": "没有可用的有效几何（sform_code=0, qform_code=0）：sform: sform_code=0，未提供有效 sform；qform: qform_code=0，未提供有效 qform；拒绝退回到单位矩阵"
+    },
+    {
+      "item": 2,
+      "path": "raw/s3_nonfinite_sform.nii",
+      "sample_key": "bad_nonfinite",
+      "kind": "intensity",
+      "status": "rejected",
+      "stage": "geometry",
+      "reason": "没有可用的有效几何（sform_code=2, qform_code=0）：sform: sform: affine 含非有限值；qform: qform_code=0，未提供有效 qform；拒绝退回到单位矩阵"
+    },
+    {
+      "item": 3,
+      "path": "raw/s3_singular_sform.nii",
+      "sample_key": "bad_singular",
+      "kind": "intensity",
+      "status": "rejected",
+      "stage": "geometry",
+      "reason": "没有可用的有效几何（sform_code=2, qform_code=0）：sform: sform: affine 3×3 部分不可逆（det=0.0）；qform: qform_code=0，未提供有效 qform；拒绝退回到单位矩阵"
+    },
+    {
+      "item": 4,
+      "path": "raw/s3_float_label.nii",
+      "sample_key": "bad_float_label",
+      "kind": "label",
+      "status": "rejected",
+      "stage": "resample",
+      "reason": "标签存储类型须为整数，实际 float32"
+    },
+    {
+      "item": 5,
+      "path": "raw/s3_negative_label.nii",
+      "sample_key": "bad_negative_label",
+      "kind": "label",
+      "status": "rejected",
+      "stage": "geometry",
+      "reason": "标签值含负数（最小 -1），要求非负整数"
+    },
+    {
+      "item": 6,
+      "path": "raw/s3_scaled_label.nii",
+      "sample_key": "bad_scaled_label",
+      "kind": "label",
+      "status": "rejected",
+      "stage": "geometry",
+      "reason": "标签缩放必须为恒等，实际生效 scl_slope=2.0, scl_inter=1.0"
+    },
+    {
+      "item": 7,
+      "path": "raw/s3_five_d.nii",
+      "sample_key": "bad_five_d",
+      "kind": "intensity",
+      "status": "rejected",
+      "stage": "resample",
+      "reason": "仅接受三维或四维文件，实际 5 维 shape=(4, 4, 4, 2, 2)"
+    },
+    {
+      "item": 8,
+      "path": "raw/s3_two_d.nii",
+      "sample_key": "bad_two_d",
+      "kind": "intensity",
+      "status": "rejected",
+      "stage": "resample",
+      "reason": "仅接受三维或四维文件，实际 2 维 shape=(4, 4)"
+    },
+    {
+      "item": 9,
+      "path": "raw/s3_axis_missing.nii",
+      "sample_key": "bad_missing",
+      "kind": "intensity",
+      "status": "rejected",
+      "stage": "read",
+      "reason": "文件不存在: raw/s3_axis_missing.nii"
+    },
+    {
+      "item": 16,
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": "dup_key",
+      "kind": "intensity",
+      "status": "rejected",
+      "stage": "manifest",
+      "reason": "sample_key+kind 在清单中重复出现（items [16, 17]），无法唯一关联产物"
+    },
+    {
+      "item": 17,
+      "path": "raw/s1_meter.nii.gz",
+      "sample_key": "dup_key",
+      "kind": "intensity",
+      "status": "rejected",
+      "stage": "manifest",
+      "reason": "sample_key+kind 在清单中重复出现（items [16, 17]），无法唯一关联产物"
+    }
+  ]
+}

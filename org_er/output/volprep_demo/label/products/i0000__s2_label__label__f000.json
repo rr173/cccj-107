@@ -1,0 +1,201 @@
+{
+  "sample_key": "s2_label",
+  "kind": "label",
+  "frame_index": 0,
+  "frame_count": 1,
+  "manifest": {
+    "item_index": 0,
+    "path": "raw/s2_label.nii"
+  },
+  "source": {
+    "sha256": "95a7cffe245396becc4146112f4bdeae5785e0817a793d13f6372919248e71a2",
+    "shape": [
+      6,
+      5,
+      6
+    ],
+    "spatial_shape": [
+      6,
+      5,
+      6
+    ],
+    "n_frames": 1,
+    "dims": 3,
+    "storage_dtype": "int16",
+    "geometry": {
+      "geometry_source": "sform",
+      "sform_code": 2,
+      "qform_code": 0,
+      "spatial_unit": "mm",
+      "unit_scale_to_mm": 1.0,
+      "affine_original": [
+        [
+          2.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "normalized_affine_mm": [
+        [
+          2.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "affine": [
+        [
+          2.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "affine_note": "affine 为实际用于重采样的毫米归一化矩阵；affine_original 为文件头原值",
+      "index_convention": "integer_voxel_index_is_center",
+      "axcodes": [
+        "+x",
+        "+y",
+        "+z"
+      ],
+      "axis_permutation": [
+        0,
+        1,
+        2
+      ],
+      "axis_flips": [
+        false,
+        false,
+        false
+      ],
+      "rejected_candidates": []
+    },
+    "scaling": {
+      "effective_slope": 1.0,
+      "effective_inter": 0.0,
+      "header_after_load_slope": "NaN",
+      "header_after_load_inter": "NaN",
+      "scaling_applied": false,
+      "scaling_note": "identity (文件头无可用的 scl_slope，或已归一化为恒等)",
+      "scaling_source": "nifti_scl_slope/scl_inter，经 nibabel 延迟缩放代理读取；header_after_load_* 是加载后头字段（无缩放时归一化为 NaN）"
+    }
+  },
+  "target": {
+    "shape": [
+      6,
+      5,
+      6
+    ],
+    "affine": [
+      [
+        2.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        2.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        2.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "spatial_unit": "mm",
+    "index_convention": "integer_voxel_index_is_center",
+    "world_unit": "mm"
+  },
+  "array_file": "i0000__s2_label__label__f000.npy",
+  "mask_file": "i0000__s2_label__label__f000.mask.npy",
+  "array_sha256": "428addd5fbc46abe4b3ca662e18239ac4e178e49b28af7e38ec282c912d395b0",
+  "mask_sha256": "275e7156ad1804284b0c5cddaaf3f32ce505e81cfdd30681fed8761e1063d633",
+  "array_dtype": "int32",
+  "mask_dtype": "uint8",
+  "mask_meaning": "mask=1 -> 有效位置；mask=0 -> 无效位置。强度无效位置为 NaN；标签无效位置为 0，必须用掩码与真实类别 0 区分",
+  "valid_voxels": 150,
+  "total_voxels": 180,
+  "chunk_voxels": 32,
+  "label_classes": {
+    "0": 31,
+    "7": 3,
+    "14": 6,
+    "21": 10,
+    "28": 15,
+    "35": 19,
+    "42": 21,
+    "49": 21,
+    "56": 19,
+    "63": 15,
+    "70": 10,
+    "77": 6,
+    "84": 3,
+    "91": 1
+  },
+  "label_class_zero_note": "label=0 可能表示真实类别 0（mask=1），也可能是无效位置（mask=0）"
+}

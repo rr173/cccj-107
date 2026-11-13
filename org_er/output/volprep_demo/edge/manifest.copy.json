@@ -1,0 +1,10 @@
+{
+  "batch_id": "edge",
+  "items": [
+    {
+      "path": "raw/s2_nan.nii",
+      "sample_key": "s2_nan",
+      "kind": "intensity"
+    }
+  ]
+}

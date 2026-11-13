@@ -1,0 +1,90 @@
+{
+  "batch_id": "bad",
+  "items": [
+    {
+      "path": "raw/s3_unknown_units.nii",
+      "sample_key": "bad_units",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s3_both_codes_zero.nii",
+      "sample_key": "bad_codes",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s3_nonfinite_sform.nii",
+      "sample_key": "bad_nonfinite",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s3_singular_sform.nii",
+      "sample_key": "bad_singular",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s3_float_label.nii",
+      "sample_key": "bad_float_label",
+      "kind": "label"
+    },
+    {
+      "path": "raw/s3_negative_label.nii",
+      "sample_key": "bad_negative_label",
+      "kind": "label"
+    },
+    {
+      "path": "raw/s3_scaled_label.nii",
+      "sample_key": "bad_scaled_label",
+      "kind": "label"
+    },
+    {
+      "path": "raw/s3_five_d.nii",
+      "sample_key": "bad_five_d",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s3_two_d.nii",
+      "sample_key": "bad_two_d",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s3_axis_missing.nii",
+      "sample_key": "bad_missing",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": "good_axis",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_axis.nii.gz",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": "bad_kind",
+      "kind": "mask"
+    },
+    {
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": "bad key/with space",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": "good_axis2",
+      "kind": "intensity"
+    },
+    "not-an-object",
+    {
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": "dup_key",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_meter.nii.gz",
+      "sample_key": "dup_key",
+      "kind": "intensity"
+    }
+  ]
+}

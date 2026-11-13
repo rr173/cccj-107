@@ -1,0 +1,92 @@
+{
+  "batch_id": "edge",
+  "manifest_path_name": "batch_edge.json",
+  "target": {
+    "shape": [
+      20,
+      5,
+      5
+    ],
+    "affine": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        -4.0
+      ],
+      [
+        0.0,
+        2.0,
+        0.0,
+        -2.0
+      ],
+      [
+        0.0,
+        0.0,
+        2.0,
+        -2.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "spatial_unit": "mm",
+    "index_convention": "integer_voxel_index_is_center",
+    "world_unit": "mm"
+  },
+  "target_json_sha256": "b29675a34c21b12da3e955f146dc25f0cb5dac294b432a5654768952cfd528a7",
+  "target_json_bytes_sha256": "b29675a34c21b12da3e955f146dc25f0cb5dac294b432a5654768952cfd528a7",
+  "chunk_voxels": 64,
+  "n_items_listed": 1,
+  "n_items_attempted": 1,
+  "n_completed": 1,
+  "n_diagnostics": 0,
+  "mask_meaning": "mask=1 -> 有效位置；mask=0 -> 无效位置。强度无效位置为 NaN；标签无效位置为 0，必须用掩码与真实类别 0 区分",
+  "products_dir": "products",
+  "samples": [
+    {
+      "item_index": 0,
+      "path": "raw/s2_nan.nii",
+      "sample_key": "s2_nan",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "cdedf54cfecb6f49c30ba7992b67b19f05ad12cff3db273a06151b7711fee85d",
+      "source_shape": [
+        8,
+        8,
+        8
+      ],
+      "n_frames": 1,
+      "geometry_source": "sform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0000__s2_nan__intensity__f000",
+          "array_file": "i0000__s2_nan__intensity__f000.npy",
+          "mask_file": "i0000__s2_nan__intensity__f000.mask.npy",
+          "meta_file": "i0000__s2_nan__intensity__f000.json",
+          "valid_voxels": 369
+        }
+      ],
+      "products": [
+        "products/i0000__s2_nan__intensity__f000.json"
+      ],
+      "target_shape": [
+        20,
+        5,
+        5
+      ],
+      "chunk_voxels": 64,
+      "chunk_shape": [
+        4,
+        4,
+        4
+      ]
+    }
+  ],
+  "diagnostics": []
+}

@@ -1,0 +1,10 @@
+{
+  "batch_id": "label",
+  "items": [
+    {
+      "path": "raw/s2_label.nii",
+      "sample_key": "s2_label",
+      "kind": "label"
+    }
+  ]
+}

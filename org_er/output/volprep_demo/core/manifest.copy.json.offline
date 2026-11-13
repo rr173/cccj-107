@@ -1,0 +1,50 @@
+{
+  "batch_id": "core",
+  "items": [
+    {
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": "s1_axis",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_flip.nii.gz",
+      "sample_key": "s1_flip",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_shear.nii.gz",
+      "sample_key": "s1_shear",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_meter.nii.gz",
+      "sample_key": "s1_meter",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_micron.nii",
+      "sample_key": "s1_micron",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_qform_only.nii",
+      "sample_key": "s1_qform_only",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_sform_bad_qform_ok.nii",
+      "sample_key": "s1_fallback",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_4d.nii",
+      "sample_key": "s1_4d",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/s1_scaled.nii",
+      "sample_key": "s1_scaled",
+      "kind": "intensity"
+    }
+  ]
+}

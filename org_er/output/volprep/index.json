@@ -1,0 +1,191 @@
+{
+  "batch_id": "sample_batch",
+  "manifest_path_name": "batch.json",
+  "target": {
+    "shape": [
+      16,
+      14,
+      12
+    ],
+    "affine": [
+      [
+        1.5,
+        0.0,
+        0.0,
+        -6.0
+      ],
+      [
+        0.0,
+        1.5,
+        0.0,
+        -5.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.5,
+        -4.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "spatial_unit": "mm",
+    "index_convention": "integer_voxel_index_is_center",
+    "world_unit": "mm"
+  },
+  "target_json_sha256": "bfe23905c6ea081f12733b3f3c90bcc851466da1b7ff988febfce9f8296349cd",
+  "target_json_bytes_sha256": "bfe23905c6ea081f12733b3f3c90bcc851466da1b7ff988febfce9f8296349cd",
+  "chunk_voxels": 65536,
+  "n_items_listed": 3,
+  "n_items_attempted": 3,
+  "n_completed": 3,
+  "n_diagnostics": 0,
+  "mask_meaning": "mask=1 -> 有效位置；mask=0 -> 无效位置。强度无效位置为 NaN；标签无效位置为 0，必须用掩码与真实类别 0 区分",
+  "products_dir": "products",
+  "samples": [
+    {
+      "item_index": 0,
+      "path": "raw/sub-01_T1.nii.gz",
+      "sample_key": "sub-01",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "38ad094897d831941c5e404ce9931bdff953ac3d229ba63a7964301676782dee",
+      "source_shape": [
+        16,
+        14,
+        13
+      ],
+      "n_frames": 1,
+      "geometry_source": "sform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0000__sub-01__intensity__f000",
+          "array_file": "i0000__sub-01__intensity__f000.npy",
+          "mask_file": "i0000__sub-01__intensity__f000.mask.npy",
+          "meta_file": "i0000__sub-01__intensity__f000.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0000__sub-01__intensity__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 65536,
+      "chunk_shape": [
+        16,
+        14,
+        12
+      ]
+    },
+    {
+      "item_index": 1,
+      "path": "raw/sub-01_seg.nii",
+      "sample_key": "sub-01",
+      "kind": "label",
+      "status": "ok",
+      "source_sha256": "349716a953146873761de1c4ef814313a14e1cdf71110968d41559181466f747",
+      "source_shape": [
+        16,
+        14,
+        13
+      ],
+      "n_frames": 1,
+      "geometry_source": "sform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0001__sub-01__label__f000",
+          "array_file": "i0001__sub-01__label__f000.npy",
+          "mask_file": "i0001__sub-01__label__f000.mask.npy",
+          "meta_file": "i0001__sub-01__label__f000.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0001__sub-01__label__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 65536,
+      "chunk_shape": [
+        16,
+        14,
+        12
+      ]
+    },
+    {
+      "item_index": 2,
+      "path": "raw/sub-02_T1_4d.nii",
+      "sample_key": "sub-02",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "e69ce74e585d252b91551ecdb8cbf707fa545abad93c72106cc780c49d9e4843",
+      "source_shape": [
+        16,
+        14,
+        13,
+        3
+      ],
+      "n_frames": 3,
+      "geometry_source": "sform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0002__sub-02__intensity__f000",
+          "array_file": "i0002__sub-02__intensity__f000.npy",
+          "mask_file": "i0002__sub-02__intensity__f000.mask.npy",
+          "meta_file": "i0002__sub-02__intensity__f000.json",
+          "valid_voxels": 2688
+        },
+        {
+          "frame_index": 1,
+          "stem": "i0002__sub-02__intensity__f001",
+          "array_file": "i0002__sub-02__intensity__f001.npy",
+          "mask_file": "i0002__sub-02__intensity__f001.mask.npy",
+          "meta_file": "i0002__sub-02__intensity__f001.json",
+          "valid_voxels": 2688
+        },
+        {
+          "frame_index": 2,
+          "stem": "i0002__sub-02__intensity__f002",
+          "array_file": "i0002__sub-02__intensity__f002.npy",
+          "mask_file": "i0002__sub-02__intensity__f002.mask.npy",
+          "meta_file": "i0002__sub-02__intensity__f002.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0002__sub-02__intensity__f000.json",
+        "products/i0002__sub-02__intensity__f001.json",
+        "products/i0002__sub-02__intensity__f002.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 65536,
+      "chunk_shape": [
+        16,
+        14,
+        12
+      ]
+    }
+  ],
+  "diagnostics": []
+}

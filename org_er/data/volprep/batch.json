@@ -1,0 +1,20 @@
+{
+  "batch_id": "sample_batch",
+  "items": [
+    {
+      "path": "raw/sub-01_T1.nii.gz",
+      "sample_key": "sub-01",
+      "kind": "intensity"
+    },
+    {
+      "path": "raw/sub-01_seg.nii",
+      "sample_key": "sub-01",
+      "kind": "label"
+    },
+    {
+      "path": "raw/sub-02_T1_4d.nii",
+      "sample_key": "sub-02",
+      "kind": "intensity"
+    }
+  ]
+}

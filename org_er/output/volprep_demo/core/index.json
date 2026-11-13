@@ -1,0 +1,440 @@
+{
+  "batch_id": "core",
+  "manifest_path_name": "batch_core.json",
+  "target": {
+    "shape": [
+      16,
+      14,
+      12
+    ],
+    "affine": [
+      [
+        1.5,
+        0.0,
+        0.0,
+        -6.0
+      ],
+      [
+        0.0,
+        1.5,
+        0.0,
+        -5.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.5,
+        -4.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "spatial_unit": "mm",
+    "index_convention": "integer_voxel_index_is_center",
+    "world_unit": "mm"
+  },
+  "target_json_sha256": "aee33708dce3a19325faafa230d6897056cb9fa3da851fe9bea52b12310e2ae2",
+  "target_json_bytes_sha256": "aee33708dce3a19325faafa230d6897056cb9fa3da851fe9bea52b12310e2ae2",
+  "chunk_voxels": 1024,
+  "n_items_listed": 9,
+  "n_items_attempted": 9,
+  "n_completed": 9,
+  "n_diagnostics": 0,
+  "mask_meaning": "mask=1 -> 有效位置；mask=0 -> 无效位置。强度无效位置为 NaN；标签无效位置为 0，必须用掩码与真实类别 0 区分",
+  "products_dir": "products",
+  "samples": [
+    {
+      "item_index": 0,
+      "path": "raw/s1_axis.nii.gz",
+      "sample_key": "s1_axis",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "93b58c1b20e20209de8adbedf093ee00ec5dbbd76c08dcee72e8293c88dc1128",
+      "source_shape": [
+        16,
+        14,
+        13
+      ],
+      "n_frames": 1,
+      "geometry_source": "sform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0000__s1_axis__intensity__f000",
+          "array_file": "i0000__s1_axis__intensity__f000.npy",
+          "mask_file": "i0000__s1_axis__intensity__f000.mask.npy",
+          "meta_file": "i0000__s1_axis__intensity__f000.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0000__s1_axis__intensity__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 1024,
+      "chunk_shape": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "item_index": 1,
+      "path": "raw/s1_flip.nii.gz",
+      "sample_key": "s1_flip",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "8277cd4df0fd1c67677d408e2113127cf4811a455dc9f4f3f086aab445a1f9bf",
+      "source_shape": [
+        16,
+        14,
+        13
+      ],
+      "n_frames": 1,
+      "geometry_source": "sform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0001__s1_flip__intensity__f000",
+          "array_file": "i0001__s1_flip__intensity__f000.npy",
+          "mask_file": "i0001__s1_flip__intensity__f000.mask.npy",
+          "meta_file": "i0001__s1_flip__intensity__f000.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0001__s1_flip__intensity__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 1024,
+      "chunk_shape": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "item_index": 2,
+      "path": "raw/s1_shear.nii.gz",
+      "sample_key": "s1_shear",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "438212f11fc9597283881c85f8965ee98fcd5da7747f0a0ba4f28468af6aef63",
+      "source_shape": [
+        20,
+        18,
+        16
+      ],
+      "n_frames": 1,
+      "geometry_source": "sform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0002__s1_shear__intensity__f000",
+          "array_file": "i0002__s1_shear__intensity__f000.npy",
+          "mask_file": "i0002__s1_shear__intensity__f000.mask.npy",
+          "meta_file": "i0002__s1_shear__intensity__f000.json",
+          "valid_voxels": 1974
+        }
+      ],
+      "products": [
+        "products/i0002__s1_shear__intensity__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 1024,
+      "chunk_shape": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "item_index": 3,
+      "path": "raw/s1_meter.nii.gz",
+      "sample_key": "s1_meter",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "b15d79aa44c65f8a910e67f19f35cd1d81b6a511a5a1480fe294decb378349c3",
+      "source_shape": [
+        16,
+        14,
+        13
+      ],
+      "n_frames": 1,
+      "geometry_source": "sform",
+      "spatial_unit": "meter",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0003__s1_meter__intensity__f000",
+          "array_file": "i0003__s1_meter__intensity__f000.npy",
+          "mask_file": "i0003__s1_meter__intensity__f000.mask.npy",
+          "meta_file": "i0003__s1_meter__intensity__f000.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0003__s1_meter__intensity__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 1024,
+      "chunk_shape": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "item_index": 4,
+      "path": "raw/s1_micron.nii",
+      "sample_key": "s1_micron",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "72c71338673ed6a9c314efce1ff1f5c4aff9ef22468535f517c35a19497a3695",
+      "source_shape": [
+        16,
+        14,
+        13
+      ],
+      "n_frames": 1,
+      "geometry_source": "qform",
+      "spatial_unit": "micron",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0004__s1_micron__intensity__f000",
+          "array_file": "i0004__s1_micron__intensity__f000.npy",
+          "mask_file": "i0004__s1_micron__intensity__f000.mask.npy",
+          "meta_file": "i0004__s1_micron__intensity__f000.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0004__s1_micron__intensity__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 1024,
+      "chunk_shape": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "item_index": 5,
+      "path": "raw/s1_qform_only.nii",
+      "sample_key": "s1_qform_only",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "b2da87dd8ff30d6c1570496f22022f8cc916aa645689e6d4e38a0ac1d69c4516",
+      "source_shape": [
+        16,
+        14,
+        13
+      ],
+      "n_frames": 1,
+      "geometry_source": "qform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0005__s1_qform_only__intensity__f000",
+          "array_file": "i0005__s1_qform_only__intensity__f000.npy",
+          "mask_file": "i0005__s1_qform_only__intensity__f000.mask.npy",
+          "meta_file": "i0005__s1_qform_only__intensity__f000.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0005__s1_qform_only__intensity__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 1024,
+      "chunk_shape": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "item_index": 6,
+      "path": "raw/s1_sform_bad_qform_ok.nii",
+      "sample_key": "s1_fallback",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "1da119b92378d27fababcf34eabcd8a79e9ef278195bede1d6bbc50e11323270",
+      "source_shape": [
+        16,
+        14,
+        13
+      ],
+      "n_frames": 1,
+      "geometry_source": "qform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0006__s1_fallback__intensity__f000",
+          "array_file": "i0006__s1_fallback__intensity__f000.npy",
+          "mask_file": "i0006__s1_fallback__intensity__f000.mask.npy",
+          "meta_file": "i0006__s1_fallback__intensity__f000.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0006__s1_fallback__intensity__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 1024,
+      "chunk_shape": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "item_index": 7,
+      "path": "raw/s1_4d.nii",
+      "sample_key": "s1_4d",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "c3aa0d25f51bf4f66d531e2a42ca021faa8efd48dae4c5242145694b116e77e6",
+      "source_shape": [
+        16,
+        14,
+        13,
+        4
+      ],
+      "n_frames": 4,
+      "geometry_source": "sform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0007__s1_4d__intensity__f000",
+          "array_file": "i0007__s1_4d__intensity__f000.npy",
+          "mask_file": "i0007__s1_4d__intensity__f000.mask.npy",
+          "meta_file": "i0007__s1_4d__intensity__f000.json",
+          "valid_voxels": 2688
+        },
+        {
+          "frame_index": 1,
+          "stem": "i0007__s1_4d__intensity__f001",
+          "array_file": "i0007__s1_4d__intensity__f001.npy",
+          "mask_file": "i0007__s1_4d__intensity__f001.mask.npy",
+          "meta_file": "i0007__s1_4d__intensity__f001.json",
+          "valid_voxels": 2688
+        },
+        {
+          "frame_index": 2,
+          "stem": "i0007__s1_4d__intensity__f002",
+          "array_file": "i0007__s1_4d__intensity__f002.npy",
+          "mask_file": "i0007__s1_4d__intensity__f002.mask.npy",
+          "meta_file": "i0007__s1_4d__intensity__f002.json",
+          "valid_voxels": 2688
+        },
+        {
+          "frame_index": 3,
+          "stem": "i0007__s1_4d__intensity__f003",
+          "array_file": "i0007__s1_4d__intensity__f003.npy",
+          "mask_file": "i0007__s1_4d__intensity__f003.mask.npy",
+          "meta_file": "i0007__s1_4d__intensity__f003.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0007__s1_4d__intensity__f000.json",
+        "products/i0007__s1_4d__intensity__f001.json",
+        "products/i0007__s1_4d__intensity__f002.json",
+        "products/i0007__s1_4d__intensity__f003.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 1024,
+      "chunk_shape": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "item_index": 8,
+      "path": "raw/s1_scaled.nii",
+      "sample_key": "s1_scaled",
+      "kind": "intensity",
+      "status": "ok",
+      "source_sha256": "874464bc0c2265aa4dfff6202ace7c1bff79900aa5d3f4739fa688943c81389b",
+      "source_shape": [
+        16,
+        14,
+        13
+      ],
+      "n_frames": 1,
+      "geometry_source": "sform",
+      "spatial_unit": "mm",
+      "frames": [
+        {
+          "frame_index": 0,
+          "stem": "i0008__s1_scaled__intensity__f000",
+          "array_file": "i0008__s1_scaled__intensity__f000.npy",
+          "mask_file": "i0008__s1_scaled__intensity__f000.mask.npy",
+          "meta_file": "i0008__s1_scaled__intensity__f000.json",
+          "valid_voxels": 2688
+        }
+      ],
+      "products": [
+        "products/i0008__s1_scaled__intensity__f000.json"
+      ],
+      "target_shape": [
+        16,
+        14,
+        12
+      ],
+      "chunk_voxels": 1024,
+      "chunk_shape": [
+        10,
+        10,
+        10
+      ]
+    }
+  ],
+  "diagnostics": []
+}
