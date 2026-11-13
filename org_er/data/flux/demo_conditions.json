@@ -1,0 +1,50 @@
+{
+  "conditions": [
+    {
+      "id": "baseline",
+      "replacements": {},
+      "knockouts": []
+    },
+    {
+      "id": "carbon_limited",
+      "replacements": {
+        "EX_C": {
+          "lower": 0.0,
+          "upper": 4.0
+        }
+      },
+      "knockouts": []
+    },
+    {
+      "id": "route1_knockout",
+      "replacements": {},
+      "knockouts": [
+        "syn1"
+      ]
+    },
+    {
+      "id": "route2_knockout",
+      "replacements": {},
+      "knockouts": [
+        "syn2"
+      ]
+    },
+    {
+      "id": "no_biomass",
+      "replacements": {},
+      "knockouts": [
+        "GROWTH"
+      ]
+    },
+    {
+      "id": "forced_infeasible",
+      "replacements": {
+        "EX_C": {
+          "lower": 6.0,
+          "upper": 4.0
+        }
+      },
+      "knockouts": []
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "metabolites": [
+    {
+      "id": "C_ext",
+      "boundary": true
+    },
+    {
+      "id": "BIO",
+      "boundary": true
+    },
+    {
+      "id": "C",
+      "boundary": false
+    }
+  ],
+  "reactions": [
+    {
+      "id": "import",
+      "stoichiometry": {
+        "C_ext": -1,
+        "C": 1
+      },
+      "lower": 0.0,
+      "upper": null
+    },
+    {
+      "id": "grow",
+      "stoichiometry": {
+        "C": -1,
+        "BIO": 1
+      },
+      "lower": 0.0,
+      "upper": null
+    }
+  ],
+  "biomass_reaction": "grow"
+}

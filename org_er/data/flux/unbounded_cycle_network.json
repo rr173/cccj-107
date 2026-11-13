@@ -1,0 +1,63 @@
+{
+  "metabolites": [
+    {
+      "id": "S_ext",
+      "boundary": true
+    },
+    {
+      "id": "BIO",
+      "boundary": true
+    },
+    {
+      "id": "S",
+      "boundary": false
+    },
+    {
+      "id": "L1",
+      "boundary": false
+    },
+    {
+      "id": "L2",
+      "boundary": false
+    }
+  ],
+  "reactions": [
+    {
+      "id": "feed",
+      "stoichiometry": {
+        "S_ext": -1,
+        "S": 1
+      },
+      "lower": 0.0,
+      "upper": 5.0
+    },
+    {
+      "id": "bio",
+      "stoichiometry": {
+        "S": -1,
+        "BIO": 1
+      },
+      "lower": 0.0,
+      "upper": null
+    },
+    {
+      "id": "lp",
+      "stoichiometry": {
+        "L1": -1,
+        "L2": 1
+      },
+      "lower": null,
+      "upper": null
+    },
+    {
+      "id": "lm",
+      "stoichiometry": {
+        "L2": -1,
+        "L1": 1
+      },
+      "lower": null,
+      "upper": null
+    }
+  ],
+  "biomass_reaction": "bio"
+}

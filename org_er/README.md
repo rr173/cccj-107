@@ -605,6 +605,84 @@ Var(θ) = Σ_h (m_h - 1)/m_h × Σ_{r∈h} (θ_r − θ_full)²
    因此候选是规则可接受边的紧致超集。规模越大、键越稀疏，节省越显著（全配对 O(N²)，
    阻塞候选约 O(Σ块大小²)）。
 
+## 稳态通量分析（org_er.flux）：FBA 最大生物量 + 近最优 FVA 反应可变范围
+
+只有反应网络与摄取上限、没有动力学参数时，用线性规划求稳态通量。LP 全部交给
+SciPy HiGHS（`linprog(method="highs")`），本作业不实现求解器、不引入热力学假设、
+不自动消除内部循环（type III pathway 会如实保留为无界循环）。依赖见
+`requirements-flux.txt`（scipy + numpy）。
+
+```bash
+python3 -m pip install -r requirements-flux.txt
+python3 scripts/make_flux_sample.py        # 生成三套微型网络与条件（data/flux/）
+python3 scripts/flux.py --network data/flux/demo_network.json \
+                        --conditions data/flux/demo_conditions.json \
+                        --out output/flux --retain-fraction 1.0 [--tolerance 1e-7]
+python3 scripts/flux.py --show output/flux                                  # 读回
+python3 scripts/run_flux_demo.py                  # 端到端演示（22 项断言全过）
+python3 scripts/run_flux_reference_check.py       # 手算+独立 LP+见证逐项核验（2182 项）
+```
+
+### 输入纪律（严格校验，报错带条件 id 与数组位置）
+
+- `metabolites`：唯一 `id` + 布尔 `boundary`；边界物质不进守恒方程，
+  内部物质必须满足 S·v=0。
+- `reactions`：唯一 `id`、以代谢物 id 为键的 `stoichiometry`（负=消耗、正=生成，
+  系数须非零有限，禁止引用不存在的物质）、`lower`/`upper`（`null`=该方向无界，
+  其余有限且 lower≤upper）。**可逆反应用负下界表达，绝不先取绝对值或拆反应**。
+- `biomass_reaction` 必须存在且下界非负，目标是最大化其净通量。
+- 条件文件每个条件给 `replacements`（替换上下界）与 `knockouts`（固定为 0）；
+  同一反应不许同时替换又敲除；未知反应、重复条件 id 在求解前报清楚位置。
+  条件之间互不继承，每个都从原网络不可变快照重新派生上下界（不改原网络）。
+  替换允许 `lower>upper`——那是“故意不可行”实验，由 LP 可行性判定，不当输入错误。
+
+### 分析链（FBA → 近最优 FVA，两端点各自独立求解）
+
+1. **FBA**：在 S·v=0 与有效上下界下最大化生物量，记录状态
+   `optimal / infeasible / unbounded / numerical_failure` 与一组最优通量见证；
+2. **FVA**：仅当目标有有限最优值 z（**含 z=0 但系统可行**）时，在同一可行域加
+   `v_biomass ≥ retain_fraction × z`，对每条反应分别独立做 min/max 两个 LP。
+   端点绝不由 FBA 的那组解推导，也不把不同反应的端点拼成一组“可行通量”；
+3. **分类**（按判零容差）：`blocked`（两端都在容差内）、`forward_only`、
+   `reverse_only`、`reversible`（能正能负）、`unbounded_min/max/both`、
+   `unavailable`（端点数值失败，绝不混作 blocked）。
+
+### 状态与数值严格分离（不拿 0 掩盖问题）
+
+- 条件不可行、目标无界、数值失败都不填 0：不可行不做 FVA；**目标无界时不做依赖
+  有限 z 的 FVA，也不给无界反应偷加大上限**；
+- 有限目标下单个反应端点仍可能无界：端点状态与方向（min/max）分别记录，
+  其他已算出的反应不丢失；
+- 每个有限解都保存**完整见证通量**（FBA 一个 JSON、FVA 每端点一行 JSONL），
+  独立代回守恒、上下界与生物量保留约束，记录最大残差；超声明容差的解不标有效，
+  该端点改记 `unavailable`；
+- 输入错误退出码 2；求解器数值失败/见证超容差退出码 3，且该批次不发布为正式
+  结果（诊断进 `.failed`，上一次成功产物原样保留）；条件级不可行/无界只醒目警告，
+  其他合法条件照常可读回，命令退出码仍为 0。
+
+### 产物（`<out>/` 一次原子发布，重跑不摧毁上一次结果）
+
+| 文件 | 内容 |
+|---|---|
+| `index.json` | 输入路径与 sha256、实际 retain_fraction/tolerance、网络与条件快照、逐条件结果 |
+| `condition_summary.csv` | 每条件 FBA 状态、z（不可行/无界留空）、是否做 FVA、见证计数、警告 |
+| `fva_ranges.csv` | 逐条件逐反应的 min/max 端点值与**端点状态**、类别、保留阈值、求解器消息 |
+| `conditions/<id>/condition.json` | 该条件实际应用的替换/敲除（含原始界与生效界）、FBA 状态 |
+| `conditions/<id>/witnesses/fba.json` | FBA 最优通量见证 + 三项残差诊断 |
+| `conditions/<id>/witnesses/fva.jsonl` | 每个 FVA 端点一行：定位到条件/反应/方向的完整通量与残差 |
+| `diagnostics.json` | 运行状态、条件级警告、硬失败信息 |
+
+### 微型夹具与手算锚点（run_flux_reference_check.py，不 import 生产代码）
+
+主网络含限量碳源（EX_C≤10）、两条替代合成路线（syn1/p1 与 syn2/p2，经 M/X）、
+可逆反应 iso（M↔X，界 [-8,8]）、与主通路无关的内部循环 cyc1/cyc2（界 [0,3]）。
+六个条件：基线、限碳（上限 4）、切断 syn1、切断 syn2、敲除 GROWTH（z=0 仍可行）、
+故意不可行（EX_C 要求 6≤v≤4）。另两套网络分别演示**目标无界**与
+**有限目标（z=5）下循环通量两端无界**。参考核验用守恒方程手算交点给出期望
+（如基线 z*=10、限碳 z*=4、iso 在基线为 [-8,8] 可逆），再用独立 LP 重解每个端点，
+并对每个见证逐项重算约束；同时验证 retain 1.0→0.5 范围放宽、条件乱序后数值与
+状态一致（仅 `order` 随输入位置变化）。
+
 ## 目录结构
 
 ```
@@ -615,6 +693,7 @@ org_er/volprep/         体数据整备子包：geometry / resample / manifest /
 org_er/rnaseq/          RNA-seq 片段计数子包：annotation / intervaltree / cigar / counting / outputs
 org_er/lcms/            LC-MS 提取子包：cv / mzml / targets / extract / integral / job / errors
 org_er/survey/         复杂抽样问卷估计子包：design / data / weights / jackknife / job / errors
+org_er/flux/           稳态通量分析子包：model（校验/条件快照）/ solver（FBA/FVA/残差）/ job（编排/发布/读回）
 scripts/                入口：make_sample_data / build / revise / verify / run_demo
                         + make_contrib_sample / contrib / run_contrib_demo / run_contrib_regression（核算作业）
                         + volprep / run_volprep_demo（体数据整备）
@@ -624,9 +703,12 @@ scripts/                入口：make_sample_data / build / revise / verify / ru
                           / run_lcms_memory_check（LC-MS 提取）
                         + survey / make_survey_sample / run_survey_demo / run_survey_reference_check
                           （复杂抽样问卷估计）
+                        + flux / make_flux_sample / run_flux_demo / run_flux_reference_check
+                          （稳态通量 FBA+FVA）
 requirements-volprep.txt 体数据整备依赖（numpy、nibabel）
 requirements-rnaseq.txt RNA-seq 计数依赖（pysam）
 requirements-lcms.txt   LC-MS 提取依赖（numpy）
+requirements-flux.txt   稳态通量分析依赖（scipy HiGHS、numpy）
 data/                   生成的样本与修订事件、论文目录样本 papers.jsonl、
                         旧版 HUGEINT 账目固定样本 legacy_contrib_hugeint.duckdb、
                         RNA-seq 人工夹具 data/rnaseq/（GTF/SAM/BAM/样本表/故障夹具）、

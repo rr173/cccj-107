@@ -1,0 +1,31 @@
+{
+  "stage": "fba",
+  "condition_id": "carbon_limited",
+  "reaction_id": null,
+  "direction": null,
+  "solver_status": "optimal",
+  "lp_objective_value": -4.0,
+  "target_reaction_value": null,
+  "nit": 5,
+  "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+  "diagnostics": {
+    "max_balance_residual": 0.0,
+    "max_bound_violation": 0.0,
+    "biomass_retention_gap": null,
+    "valid": true,
+    "note": "所有约束残差在声明容差内"
+  },
+  "flux": {
+    "EX_C": 4.0,
+    "syn1": 0.0,
+    "syn2": 4.0,
+    "iso": -4.0,
+    "p1": 4.0,
+    "p2": 0.0,
+    "GROWTH": 4.0,
+    "EX_M": 0.0,
+    "EX_X": 0.0,
+    "cyc1": -0.0,
+    "cyc2": 0.0
+  }
+}

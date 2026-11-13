@@ -1,0 +1,9 @@
+{
+  "conditions": [
+    {
+      "id": "finite_obj_free_cycle",
+      "replacements": {},
+      "knockouts": []
+    }
+  ]
+}

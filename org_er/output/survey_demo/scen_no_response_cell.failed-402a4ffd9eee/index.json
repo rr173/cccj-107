@@ -1,0 +1,9 @@
+{
+  "batch_id": "402a4ffd9eee",
+  "run_status": "failed",
+  "stage": "adjustment",
+  "reason": "应答调整失败：adjustment_cell 'dead' 没有应答者；禁止偷偷合并调整格或跳过该格",
+  "data_sha256": "d72a7a69458d74335fae55f9ab84e8ce32c2735c6d449daa39e9372223e48b8a",
+  "design_sha256": "16bfdb305c849d15e25f26c37ef6ecf1c8a71dca07776444483a83806ec26d02",
+  "n_people": 6
+}

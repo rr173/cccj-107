@@ -1,0 +1,29 @@
+{
+  "condition_id": "no_biomass",
+  "order": 4,
+  "applied_changes": {
+    "GROWTH": {
+      "op": "knockout",
+      "original": [
+        0.0,
+        null
+      ],
+      "applied": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "fba": {
+    "status": "optimal",
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "z": -0.0,
+    "witness": "witnesses/fba.json"
+  },
+  "fva_performed": true,
+  "warning": null,
+  "retain_fraction": 1.0,
+  "tolerance": 1e-07,
+  "unavailable_endpoint_count": 0,
+  "invalid_witness_count": 0
+}

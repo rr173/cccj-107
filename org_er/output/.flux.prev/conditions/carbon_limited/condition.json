@@ -1,0 +1,29 @@
+{
+  "condition_id": "carbon_limited",
+  "order": 1,
+  "applied_changes": {
+    "EX_C": {
+      "op": "replace",
+      "original": [
+        0.0,
+        10.0
+      ],
+      "applied": [
+        0.0,
+        4.0
+      ]
+    }
+  },
+  "fba": {
+    "status": "optimal",
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "z": 4.0,
+    "witness": "witnesses/fba.json"
+  },
+  "fva_performed": true,
+  "warning": null,
+  "retain_fraction": 1.0,
+  "tolerance": 1e-07,
+  "unavailable_endpoint_count": 0,
+  "invalid_witness_count": 0
+}

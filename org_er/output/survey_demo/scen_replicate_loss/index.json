@@ -1,5 +1,5 @@
 {
-  "batch_id": "dcd40fa2073d",
+  "batch_id": "ddfbbf2f9408",
   "run_status": "replicate_failures",
   "data_path": "/workspace/org_er/data/survey/scenarios/replicate_loss.csv",
   "design_path": "/workspace/org_er/data/survey/scenarios/replicate_loss_design.json",

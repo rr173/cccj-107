@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "inputs": {
+    "network_path": "/workspace/org_er/data/flux/demo_network.json",
+    "network_sha256": "a0b19a260a12a3a0a14ff1188957e6eb69be9826efa0dd84ac7f3798a7973ff3",
+    "conditions_path": "/workspace/org_er/data/flux/demo_conditions.json",
+    "conditions_sha256": "3581117b6af5751f8e739793d72e5c3cc834ca2a7dfaae70a97b9910e5c5f6fd"
+  },
+  "parameters": {
+    "retain_fraction": 1.0,
+    "tolerance": 1e-07
+  },
+  "network_summary": {
+    "metabolites": [
+      "C_ext",
+      "BIO",
+      "M_ext",
+      "X_ext",
+      "C",
+      "M",
+      "X",
+      "P",
+      "Y1",
+      "Y2"
+    ],
+    "boundary_metabolites": [
+      "BIO",
+      "C_ext",
+      "M_ext",
+      "X_ext"
+    ],
+    "internal_metabolites": [
+      "C",
+      "M",
+      "X",
+      "P",
+      "Y1",
+      "Y2"
+    ],
+    "reactions": [
+      {
+        "id": "EX_C",
+        "lower": 0.0,
+        "upper": 10.0,
+        "stoichiometry": {
+          "C_ext": -1.0,
+          "C": 1.0
+        }
+      },
+      {
+        "id": "syn1",
+        "lower": 0.0,
+        "upper": null,
+        "stoichiometry": {
+          "C": -1.0,
+          "M": 1.0
+        }
+      },
+      {
+        "id": "syn2",
+        "lower": 0.0,
+        "upper": null,
+        "stoichiometry": {
+          "C": -1.0,
+          "X": 1.0
+        }
+      },
+      {
+        "id": "iso",
+        "lower": -8.0,
+        "upper": 8.0,
+        "stoichiometry": {
+          "M": -1.0,
+          "X": 1.0
+        }
+      },
+      {
+        "id": "p1",
+        "lower": 0.0,
+        "upper": null,
+        "stoichiometry": {
+          "M": -1.0,
+          "P": 1.0
+        }
+      },
+      {
+        "id": "p2",
+        "lower": 0.0,
+        "upper": null,
+        "stoichiometry": {
+          "X": -1.0,
+          "P": 1.0
+        }
+      },
+      {
+        "id": "GROWTH",
+        "lower": 0.0,
+        "upper": null,
+        "stoichiometry": {
+          "P": -1.0,
+          "BIO": 1.0
+        }
+      },
+      {
+        "id": "EX_M",
+        "lower": 0.0,
+        "upper": null,
+        "stoichiometry": {
+          "M": -1.0,
+          "M_ext": 1.0
+        }
+      },
+      {
+        "id": "EX_X",
+        "lower": 0.0,
+        "upper": null,
+        "stoichiometry": {
+          "X": -1.0,
+          "X_ext": 1.0
+        }
+      },
+      {
+        "id": "cyc1",
+        "lower": 0.0,
+        "upper": 3.0,
+        "stoichiometry": {
+          "Y1": -1.0,
+          "Y2": 1.0
+        }
+      },
+      {
+        "id": "cyc2",
+        "lower": 0.0,
+        "upper": 3.0,
+        "stoichiometry": {
+          "Y2": -1.0,
+          "Y1": 1.0
+        }
+      }
+    ],
+    "biomass_reaction": "GROWTH"
+  },
+  "conditions": [
+    {
+      "id": "baseline",
+      "order": 0,
+      "replacements": {},
+      "knockouts": []
+    },
+    {
+      "id": "carbon_limited",
+      "order": 1,
+      "replacements": {
+        "EX_C": [
+          0.0,
+          4.0
+        ]
+      },
+      "knockouts": []
+    },
+    {
+      "id": "route1_knockout",
+      "order": 2,
+      "replacements": {},
+      "knockouts": [
+        "syn1"
+      ]
+    },
+    {
+      "id": "route2_knockout",
+      "order": 3,
+      "replacements": {},
+      "knockouts": [
+        "syn2"
+      ]
+    },
+    {
+      "id": "no_biomass",
+      "order": 4,
+      "replacements": {},
+      "knockouts": [
+        "GROWTH"
+      ]
+    },
+    {
+      "id": "forced_infeasible",
+      "order": 5,
+      "replacements": {
+        "EX_C": [
+          6.0,
+          4.0
+        ]
+      },
+      "knockouts": []
+    }
+  ],
+  "outcomes": [
+    {
+      "condition_id": "baseline",
+      "order": 0,
+      "fba_status": "optimal",
+      "z": 10.0,
+      "fva_performed": true,
+      "warning": null,
+      "witness_count": 23,
+      "invalid_witness_count": 0,
+      "unavailable_endpoint_count": 0
+    },
+    {
+      "condition_id": "carbon_limited",
+      "order": 1,
+      "fba_status": "optimal",
+      "z": 4.0,
+      "fva_performed": true,
+      "warning": null,
+      "witness_count": 23,
+      "invalid_witness_count": 0,
+      "unavailable_endpoint_count": 0
+    },
+    {
+      "condition_id": "route1_knockout",
+      "order": 2,
+      "fba_status": "optimal",
+      "z": 10.0,
+      "fva_performed": true,
+      "warning": null,
+      "witness_count": 23,
+      "invalid_witness_count": 0,
+      "unavailable_endpoint_count": 0
+    },
+    {
+      "condition_id": "route2_knockout",
+      "order": 3,
+      "fba_status": "optimal",
+      "z": 10.0,
+      "fva_performed": true,
+      "warning": null,
+      "witness_count": 23,
+      "invalid_witness_count": 0,
+      "unavailable_endpoint_count": 0
+    },
+    {
+      "condition_id": "no_biomass",
+      "order": 4,
+      "fba_status": "optimal",
+      "z": -0.0,
+      "fva_performed": true,
+      "warning": null,
+      "witness_count": 23,
+      "invalid_witness_count": 0,
+      "unavailable_endpoint_count": 0
+    },
+    {
+      "condition_id": "forced_infeasible",
+      "order": 5,
+      "fba_status": "infeasible",
+      "z": null,
+      "fva_performed": false,
+      "warning": "条件不可行：守恒与上下界下不存在稳态通量，不做 FVA",
+      "witness_count": 0,
+      "invalid_witness_count": 0,
+      "unavailable_endpoint_count": 0
+    }
+  ],
+  "warnings": [
+    "forced_infeasible: 条件不可行：守恒与上下界下不存在稳态通量，不做 FVA"
+  ],
+  "run_status": "completed_with_warnings"
+}

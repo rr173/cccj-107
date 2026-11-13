@@ -1,0 +1,8 @@
+{
+  "run_status": "completed_with_warnings",
+  "warnings": [
+    "forced_infeasible: 条件不可行：守恒与上下界下不存在稳态通量，不做 FVA"
+  ],
+  "hard_error": null,
+  "note": "逐见证的守恒/上下界/保留约束残差见 conditions/<id>/witnesses/"
+}

@@ -1,0 +1,29 @@
+{
+  "condition_id": "forced_infeasible",
+  "order": 5,
+  "applied_changes": {
+    "EX_C": {
+      "op": "replace",
+      "original": [
+        0.0,
+        10.0
+      ],
+      "applied": [
+        6.0,
+        4.0
+      ]
+    }
+  },
+  "fba": {
+    "status": "infeasible",
+    "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None)",
+    "z": null,
+    "witness": null
+  },
+  "fva_performed": false,
+  "warning": "条件不可行：守恒与上下界下不存在稳态通量，不做 FVA",
+  "retain_fraction": 1.0,
+  "tolerance": 1e-07,
+  "unavailable_endpoint_count": 0,
+  "invalid_witness_count": 0
+}

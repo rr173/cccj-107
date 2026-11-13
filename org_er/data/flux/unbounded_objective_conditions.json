@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "id": "obj_unbounded",
+      "replacements": {},
+      "knockouts": []
+    },
+    {
+      "id": "capped",
+      "replacements": {
+        "import": {
+          "lower": 0.0,
+          "upper": 7.0
+        }
+      },
+      "knockouts": []
+    }
+  ]
+}

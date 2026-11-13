@@ -1,0 +1,147 @@
+{
+  "metabolites": [
+    {
+      "id": "C_ext",
+      "boundary": true
+    },
+    {
+      "id": "BIO",
+      "boundary": true
+    },
+    {
+      "id": "M_ext",
+      "boundary": true
+    },
+    {
+      "id": "X_ext",
+      "boundary": true
+    },
+    {
+      "id": "C",
+      "boundary": false
+    },
+    {
+      "id": "M",
+      "boundary": false
+    },
+    {
+      "id": "X",
+      "boundary": false
+    },
+    {
+      "id": "P",
+      "boundary": false
+    },
+    {
+      "id": "Y1",
+      "boundary": false
+    },
+    {
+      "id": "Y2",
+      "boundary": false
+    }
+  ],
+  "reactions": [
+    {
+      "id": "EX_C",
+      "stoichiometry": {
+        "C_ext": -1,
+        "C": 1,
+        "GHOST": 1.0
+      },
+      "lower": 0.0,
+      "upper": 10.0
+    },
+    {
+      "id": "syn1",
+      "stoichiometry": {
+        "C": -1,
+        "M": 1
+      },
+      "lower": 0.0,
+      "upper": null
+    },
+    {
+      "id": "syn2",
+      "stoichiometry": {
+        "C": -1,
+        "X": 1
+      },
+      "lower": 0.0,
+      "upper": null
+    },
+    {
+      "id": "iso",
+      "stoichiometry": {
+        "M": -1,
+        "X": 1
+      },
+      "lower": -8.0,
+      "upper": 8.0
+    },
+    {
+      "id": "p1",
+      "stoichiometry": {
+        "M": -1,
+        "P": 1
+      },
+      "lower": 0.0,
+      "upper": null
+    },
+    {
+      "id": "p2",
+      "stoichiometry": {
+        "X": -1,
+        "P": 1
+      },
+      "lower": 0.0,
+      "upper": null
+    },
+    {
+      "id": "GROWTH",
+      "stoichiometry": {
+        "P": -1,
+        "BIO": 1
+      },
+      "lower": 0.0,
+      "upper": null
+    },
+    {
+      "id": "EX_M",
+      "stoichiometry": {
+        "M": -1,
+        "M_ext": 1
+      },
+      "lower": 0.0,
+      "upper": null
+    },
+    {
+      "id": "EX_X",
+      "stoichiometry": {
+        "X": -1,
+        "X_ext": 1
+      },
+      "lower": 0.0,
+      "upper": null
+    },
+    {
+      "id": "cyc1",
+      "stoichiometry": {
+        "Y1": -1,
+        "Y2": 1
+      },
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    {
+      "id": "cyc2",
+      "stoichiometry": {
+        "Y2": -1,
+        "Y1": 1
+      },
+      "lower": 0.0,
+      "upper": 3.0
+    }
+  ],
+  "biomass_reaction": "GROWTH"
+}

@@ -1,9 +1,0 @@
-{
-  "batch_id": "fbe91b8bdf5b",
-  "run_status": "failed",
-  "stage": "calibration",
-  "reason": "全样本边际校准失败 [unsupported_control]: 没有样本支持的正控制格 / 目标为 0 却有样本的格：列 'band' 类别 'high' 已知人数 10，但应答样本权重和为 0",
-  "data_sha256": "6b98fa8a4fec26458338edebf6e5bb4298e9c669d679476a8ea3df37b5c5a06b",
-  "design_sha256": "fc34ce07d862267b52de3b1736bc1ae463325a7d5d3036ffd908ab4c62b1985a",
-  "n_people": 6
-}

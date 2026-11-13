@@ -1,0 +1,7 @@
+condition_id,order,fba_status,z,fva_performed,witness_count,invalid_witness_count,unavailable_endpoint_count,warning
+baseline,0,optimal,10.0,True,23,0,0,
+carbon_limited,1,optimal,4.0,True,23,0,0,
+route1_knockout,2,optimal,10.0,True,23,0,0,
+route2_knockout,3,optimal,10.0,True,23,0,0,
+no_biomass,4,optimal,0.0,True,23,0,0,
+forced_infeasible,5,infeasible,,False,0,0,0,条件不可行：守恒与上下界下不存在稳态通量，不做 FVA

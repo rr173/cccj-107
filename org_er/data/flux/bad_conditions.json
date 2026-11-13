@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "id": "conflict",
+      "replacements": {
+        "syn1": {
+          "lower": 0.0,
+          "upper": 1.0
+        }
+      },
+      "knockouts": [
+        "syn1"
+      ]
+    },
+    {
+      "id": "ghost",
+      "replacements": {
+        "NO_SUCH_RXN": {
+          "lower": 0.0,
+          "upper": 1.0
+        }
+      },
+      "knockouts": []
+    },
+    {
+      "id": "dup",
+      "replacements": {},
+      "knockouts": []
+    },
+    {
+      "id": "dup",
+      "replacements": {},
+      "knockouts": []
+    }
+  ]
+}
